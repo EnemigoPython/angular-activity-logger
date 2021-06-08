@@ -20,7 +20,7 @@ main {
 
 footer {
     display: flex;
-    margin-top: 5rem;
+    padding-top: 5rem;
     align-items: center;
     justify-content: center;
 }
