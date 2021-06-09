@@ -4,12 +4,28 @@
             <button mat-button [matMenuTriggerFor]="menu">{{currentForm}}</button>
             <mat-divider></mat-divider>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item>Log in</button>
-                <button mat-menu-item>Register</button>
+                <button mat-menu-item
+                (click)="setCurrentForm('Log in')">Log in</button>
+                <button mat-menu-item
+                (click)="setCurrentForm('Register')">Register</button>
             </mat-menu>
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        Test
+        <template *ngIf="currentForm==='Log in'; then first_thing else other_thing"></template>
+        <ng-template #first_thing>
+            <mat-form-field>
+                <mat-label>Enter your username</mat-label>
+                <input matInput>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Enter your password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+        </ng-template>
+        <ng-template #other_thing>Condition 2</ng-template>
     </mat-card-content>
 </mat-card>
