@@ -10,7 +10,7 @@ import { MenuForm } from '../../MenuForm';
   styleUrls: ['./main-menu.component.css']
 })
 export class MainMenuComponent implements OnInit {
-  currentForm: MenuForm = 'Log in';
+  currentForm?: MenuForm;
   subscription?: Subscription;
   hide: boolean = true;
 
@@ -19,7 +19,7 @@ export class MainMenuComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    console.log(this.uiService.getPath())
+    this.currentForm = this.uiService.getPath() === '/register' ? 'Register' : 'Log in';
     this.subscription = this.uiService
     .menuObserver()
     .subscribe(

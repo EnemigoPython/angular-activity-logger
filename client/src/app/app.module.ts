@@ -17,13 +17,15 @@ import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 import { AppComponent } from './app.component';
+import { LandingComponent } from './components/landing/landing.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     MainMenuComponent,
-    FooterComponent
+    FooterComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,
