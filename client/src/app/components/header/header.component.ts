@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UiService } from '../../services/ui.service';
 
 @Component({
   selector: 'app-header',

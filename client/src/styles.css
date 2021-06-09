@@ -5,6 +5,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     display: flex;
     flex-flow: column;
     height: 100%;
+    background-image: url(waves.svg), url(waves2.svg), linear-gradient(#87ceeb, #60c7f4);
+    background-repeat: no-repeat;
+    background-position-y: bottom;
 }
 
 header {
@@ -14,7 +17,7 @@ header {
 main {
     display: flex;
     flex: 1 1 auto;
-    align-items: center;
+    margin-top: 5rem;
     justify-content: center;
 }
 

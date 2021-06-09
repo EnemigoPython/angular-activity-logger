@@ -1,10 +1,11 @@
-<mat-card class="example">
+<mat-card>
     <mat-card-header>
         <mat-card-title>
-            <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+            <button mat-button [matMenuTriggerFor]="menu">{{currentForm}}</button>
+            <mat-divider></mat-divider>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item>Item 1</button>
-                <button mat-menu-item>Item 2</button>
+                <button mat-menu-item>Log in</button>
+                <button mat-menu-item>Register</button>
             </mat-menu>
         </mat-card-title>
     </mat-card-header>

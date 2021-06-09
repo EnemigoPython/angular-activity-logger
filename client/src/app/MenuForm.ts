@@ -1,0 +1,1 @@
+export type MenuForm = 'Log in' | 'Register';

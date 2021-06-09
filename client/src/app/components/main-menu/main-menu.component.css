@@ -1,4 +1,4 @@
-.example {
-    width: 100px;
+mat-card {
+    width: 200px;
     height: 100px;
-  }
+}

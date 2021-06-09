@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UiService } from '../../services/ui.service';
+import { MenuForm } from '../../MenuForm';
 
 @Component({
   selector: 'app-main-menu',
@@ -6,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-menu.component.css']
 })
 export class MainMenuComponent implements OnInit {
+  currentForm: MenuForm = 'Log in';
 
   constructor() { }
 
