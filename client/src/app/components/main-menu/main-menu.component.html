@@ -12,20 +12,34 @@
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <template *ngIf="currentForm==='Log in'; then first_thing else other_thing"></template>
-        <ng-template #first_thing>
+        <div>
             <mat-form-field>
-                <mat-label>Enter your username</mat-label>
+                <mat-label>{{currentForm === 'Log in' ? "Enter your username" : "Choose a username"}}</mat-label>
                 <input matInput>
+                <mat-icon matSuffix [inline]="true">account_circle</mat-icon>
             </mat-form-field>
+        </div>
+        <div>
             <mat-form-field>
-                <mat-label>Enter your password</mat-label>
+                <mat-label>{{currentForm === 'Log in' ? "Enter your password" : "Choose a password"}}</mat-label>
                 <input matInput [type]="hide ? 'password' : 'text'">
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <template *ngIf="currentForm ==='Register'; then confirm_password"></template>
+        <ng-template #confirm_password>
+            <mat-form-field>
+                <mat-label>Confirm password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
             </mat-form-field>
         </ng-template>
-        <ng-template #other_thing>Condition 2</ng-template>
+        <div class="submitBtn">
+            <button color="primary" mat-button>Submit</button>
+        </div>
     </mat-card-content>
 </mat-card>

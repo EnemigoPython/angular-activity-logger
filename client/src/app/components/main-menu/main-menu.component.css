@@ -1,3 +1,4 @@
-mat-card {
-    width: 200px;
+.submitBtn {
+  display: flex;
+  justify-content: center;
 }
