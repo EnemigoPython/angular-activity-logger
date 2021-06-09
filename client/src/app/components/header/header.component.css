@@ -3,6 +3,11 @@ mat-toolbar {
     color: white;
 }
 
+.logo {
+    text-decoration: inherit;
+    color: inherit;
+}
+
 .spacer {
     flex: 1 1 auto;
 }

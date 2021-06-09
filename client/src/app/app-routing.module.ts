@@ -5,7 +5,8 @@ import { MainMenuComponent } from './components/main-menu/main-menu.component';
 
 const routes: Routes = [
   {path: '', component: MainMenuComponent},
-  {path: 'login', component: MainMenuComponent}
+  {path: 'login', component: MainMenuComponent},
+  {path: 'register', component: MainMenuComponent},
 ];
 
 @NgModule({

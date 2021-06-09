@@ -14,9 +14,12 @@ export class MainMenuComponent implements OnInit {
   subscription?: Subscription;
   hide: boolean = true;
 
-  constructor(private uiService: UiService) { }
+  constructor(
+    private uiService: UiService,
+    ) { }
 
   ngOnInit(): void {
+    console.log(this.uiService.getPath())
     this.subscription = this.uiService
     .menuObserver()
     .subscribe(
