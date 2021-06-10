@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
 
 import { UiService } from '../../services/ui.service';
 import { AccountService } from 'src/app/services/account.service';
@@ -16,7 +15,6 @@ import { LoginDetails } from '../../LoginDetails';
 export class MainMenuComponent implements OnInit {
   currentForm?: MenuForm;
   currentAccount: string | null = null;
-  subscription?: Subscription;
   hide: boolean = true;
 
   @Input() username = new FormControl('', [Validators.required]);
@@ -30,10 +28,15 @@ export class MainMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentForm = this.uiService.getPath() === '/register' ? 'Register' : 'Log in';
-    this.subscription = this.uiService
+    this.uiService
     .menuObserver()
     .subscribe(
       value => this.currentForm = value
+    );
+    this.accountService
+    .accountObserver()
+    .subscribe(
+      value => this.currentAccount = value
     );
   }
 

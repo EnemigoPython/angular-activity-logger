@@ -1,17 +1,9 @@
 const http = require('http');
 const express = require('express');
-const mysql = require('mysql');
 require('dotenv/config');
+const db = require('./db');
 
 const usersRoute = require('./routes/users');
-
-const db = mysql.createConnection({
-    host                : process.env.HOST || 'localhost',
-    user                : 'root',
-    password            : process.env.PASSWORD,
-    database            : 'activitylogger',
-    multipleStatements  : true
-});
 
 function checkOrCreateDb() {
     const sql = 'CREATE DATABASE IF NOT EXISTS activitylogger;';

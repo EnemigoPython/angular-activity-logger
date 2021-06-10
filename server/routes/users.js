@@ -9,4 +9,13 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.post("/", async (req, res) => {
+    try {
+        res.json({});
+    }
+    catch (err) {
+        res.json({ message: err });
+    }
+});
+
 module.exports = router;

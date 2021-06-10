@@ -37,7 +37,7 @@ export class AccountService {
   }
 
   requestNewAccount(details: LoginDetails): Observable<LoginDetails> {
-    return this.http.get<LoginDetails>(this.apiUrl);
-    // return this.http.post<LoginDetails>(this.apiUrl, details, httpOptions);
+    return this.http.post<LoginDetails>(`${this.apiUrl}/users`, details, httpOptions);
+    // return this.http.get<LoginDetails>(this.apiUrl);
   }
 }
