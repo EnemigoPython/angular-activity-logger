@@ -28,6 +28,10 @@ export class AccountService {
     this.subject.next(this.currentUser);
   }
 
+  accountObserver(): Observable<any> {
+    return this.subject.asObservable();
+  }
+
   requestLogin(details: LoginDetails): void {
 
   }

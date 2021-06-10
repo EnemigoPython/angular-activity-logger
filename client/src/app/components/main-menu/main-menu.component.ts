@@ -15,6 +15,7 @@ import { LoginDetails } from '../../LoginDetails';
 })
 export class MainMenuComponent implements OnInit {
   currentForm?: MenuForm;
+  currentAccount: string | null = null;
   subscription?: Subscription;
   hide: boolean = true;
 
