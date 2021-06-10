@@ -3,7 +3,10 @@ import { AbstractControl, FormControl, ValidationErrors, ValidatorFn, Validators
 import { Subscription } from 'rxjs';
 
 import { UiService } from '../../services/ui.service';
+import { AccountService } from 'src/app/services/account.service';
+
 import { MenuForm } from '../../MenuForm';
+import { LoginDetails } from '../../LoginDetails';
 
 @Component({
   selector: 'app-main-menu',
@@ -20,7 +23,8 @@ export class MainMenuComponent implements OnInit {
   @Input() confirmPass = new FormControl('', [Validators.required, this.passwordsMatch()]);
 
   constructor(
-    private uiService: UiService
+    private uiService: UiService,
+    private accountService: AccountService
     ) { }
 
   ngOnInit(): void {
@@ -43,10 +47,14 @@ export class MainMenuComponent implements OnInit {
   }
 
   onSubmit(): void {
+    const formValues: LoginDetails = {
+      username: this.username.value,
+      password: this.password.value
+    }
     if (this.currentForm === 'Log in' && this.username.valid && this.password.valid) {
-      console.log(true);
+      this.accountService.requestLogin(formValues)
     } else if (this.username.valid && this.password.valid && this.confirmPass.valid) {
-      console.log(true);
+      this.accountService.requestNewAccount(formValues)
     }
     // console.log(this.username.valid && this.password.valid && this.confirmPass.valid);
     // console.log(this.username.value, this.password.value);
