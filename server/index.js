@@ -58,14 +58,21 @@ db.connect((err) => {
 const port = process.env.PORT || 3000;
 const app = express();
 const server = http.createServer(app);
+const cors = require('cors');
 
 app.use('/users', usersRoute);
 app.use(express.urlencoded({
     extended: true
 }));
+app.use(cors({
+    origin: "http://localhost:4200",
+    methods: ["GET", "POST"],
+    credentials: true
+}));
 
 app.get('/', (req, res) => {
-    res.send('Hello World');
+    res.json({'Hello World': true});
+    console.log('received')
 });
 
 server.listen(port, () => {

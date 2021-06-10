@@ -54,12 +54,10 @@ export class MainMenuComponent implements OnInit {
     if (this.currentForm === 'Log in' && this.username.valid && this.password.valid) {
       this.accountService.requestLogin(formValues)
     } else if (this.username.valid && this.password.valid && this.confirmPass.valid) {
-      this.accountService.requestNewAccount(formValues)
+      this.accountService.requestNewAccount(formValues).subscribe(
+        value => console.log(value)
+      );
     }
-    // console.log(this.username.valid && this.password.valid && this.confirmPass.valid);
-    // console.log(this.username.value, this.password.value);
-    // console.log(this.username.valid, this.password.valid, this.confirmPass.valid);
-    // console.log(this.currentForm);
   }
 
 }
