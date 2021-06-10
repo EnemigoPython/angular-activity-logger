@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { AbstractControl, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { UiService } from '../../services/ui.service';
@@ -14,12 +15,12 @@ export class MainMenuComponent implements OnInit {
   subscription?: Subscription;
   hide: boolean = true;
 
-  username: string = "";
-  password: string = "";
-  confirmedPass: string = "";
+  @Input() username = new FormControl('', [Validators.required]);
+  @Input() password = new FormControl('', [Validators.required]);
+  @Input() confirmPass = new FormControl('', [Validators.required, this.passwordsMatch()]);
 
   constructor(
-    private uiService: UiService,
+    private uiService: UiService
     ) { }
 
   ngOnInit(): void {
@@ -31,8 +32,20 @@ export class MainMenuComponent implements OnInit {
     );
   }
 
+  passwordsMatch(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      return this.password?.value === this.confirmPass?.value ? null : {notMatching: true};
+    };
+  }
+
   setCurrentForm(newForm: MenuForm): void {
     this.uiService.setMenuForm(newForm);
+  }
+
+  onSubmit(): void {
+    console.log(this.username.value, this.password.value);
+    console.log(this.username.valid, this.password.valid, this.confirmPass.valid);
+    console.log(this.currentForm);
   }
 
 }

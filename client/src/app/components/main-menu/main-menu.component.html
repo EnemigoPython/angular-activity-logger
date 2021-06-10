@@ -16,14 +16,16 @@
             <div>
                 <mat-form-field>
                     <mat-label>{{currentForm === 'Log in' ? "Enter your username" : "Choose a username"}}</mat-label>
-                    <input type="username" name="username" id="username" [(ngModel)]="username" matInput>
+                    <input type="username" name="username" id="username" [formControl]="username" matInput>
+                    <mat-error *ngIf="username.invalid">You must enter a value</mat-error>
                     <mat-icon matSuffix [inline]="true">account_circle</mat-icon>
                 </mat-form-field>
             </div>
             <div>
                 <mat-form-field>
                     <mat-label>{{currentForm === 'Log in' ? "Enter your password" : "Choose a password"}}</mat-label>
-                    <input type="password" name="password" id="password" [(ngModel)]="password" matInput [type]="hide ? 'password' : 'text'">
+                    <input type="password" name="password" id="password" [formControl]="password" matInput [type]="hide ? 'password' : 'text'">
+                    <mat-error *ngIf="password.invalid">You must enter a value</mat-error>
                     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
@@ -33,14 +35,15 @@
             <ng-template #confirm_password>
                 <mat-form-field>
                     <mat-label>Confirm password</mat-label>
-                    <input type="confirmPass" name="confirmPass" id="confirmPass" [(ngModel)]="confirmPass" matInput [type]="hide ? 'password' : 'text'">
+                    <input type="confirmPass" name="confirmPass" id="confirmPass" [formControl]="confirmPass" matInput [type]="hide ? 'password' : 'text'">
+                    <mat-error *ngIf="confirmPass.invalid">{{confirmPass.errors?.required ? "You must enter a value" : "Passwords must match"}}</mat-error>
                     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                 </mat-form-field>
             </ng-template>
             <div class="submitBtn">
-                <input type="submit" value="Submit" color="primary" mat-button />
+                <button type="submit" color="primary" mat-button>Submit</button>
             </div>
         </form>
     </mat-card-content>
