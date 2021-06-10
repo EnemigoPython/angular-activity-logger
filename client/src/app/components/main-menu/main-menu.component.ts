@@ -14,6 +14,10 @@ export class MainMenuComponent implements OnInit {
   subscription?: Subscription;
   hide: boolean = true;
 
+  username: string = "";
+  password: string = "";
+  confirmedPass: string = "";
+
   constructor(
     private uiService: UiService,
     ) { }
