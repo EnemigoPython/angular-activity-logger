@@ -43,9 +43,15 @@ export class MainMenuComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.username.value, this.password.value);
-    console.log(this.username.valid, this.password.valid, this.confirmPass.valid);
-    console.log(this.currentForm);
+    if (this.currentForm === 'Log in' && this.username.valid && this.password.valid) {
+      console.log(true);
+    } else if (this.username.valid && this.password.valid && this.confirmPass.valid) {
+      console.log(true);
+    }
+    // console.log(this.username.valid && this.password.valid && this.confirmPass.valid);
+    // console.log(this.username.value, this.password.value);
+    // console.log(this.username.valid, this.password.valid, this.confirmPass.valid);
+    // console.log(this.currentForm);
   }
 
 }

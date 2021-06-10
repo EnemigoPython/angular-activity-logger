@@ -12,7 +12,7 @@
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <form (ngSubmit)="onSubmit()">
+        <form>
             <div>
                 <mat-form-field>
                     <mat-label>{{currentForm === 'Log in' ? "Enter your username" : "Choose a username"}}</mat-label>
@@ -43,7 +43,7 @@
                 </mat-form-field>
             </ng-template>
             <div class="submitBtn">
-                <button type="submit" color="primary" mat-button>Submit</button>
+                <button color="primary" mat-button (click)="onSubmit()">Submit</button>
             </div>
         </form>
     </mat-card-content>
