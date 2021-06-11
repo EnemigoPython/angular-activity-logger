@@ -1,7 +1,7 @@
 const mysql = require('mysql');
 
 function bootstrap() {
-    return new Promise(res => {
+    return new Promise(resolve => {
         const init = mysql.createConnection({
             host                : process.env.HOST || 'localhost',
             user                : 'root',
@@ -13,9 +13,9 @@ function bootstrap() {
         init.query(sql, (err, _result) => {
             if (err) throw err;
             console.log("Checking database...");
+            resolve();
         });
-        init.end()
-        res();
+        init.end();
     });
 }
 

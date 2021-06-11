@@ -5,6 +5,19 @@ const { bootstrap, db } = require('./db');
 
 const usersRoute = require('./routes/users');
 
+(async () => {
+    await bootstrap();
+    startDB();
+    checkOrCreateTables();
+})();
+
+function startDB() {
+    db.connect((err) => {
+        if (err) throw err;
+        console.log('Database connected...');
+    });
+}
+
 function checkOrCreateTables() {
     const sql = 
     `CREATE TABLE IF NOT EXISTS users(
@@ -31,13 +44,6 @@ function checkOrCreateTables() {
         console.log("Checking tables...");
     });
 }
-
-db.connect(async (err) => {
-    if (err) throw err;
-    console.log('Database connected...');
-    await bootstrap()
-    checkOrCreateTables();
-});
 
 const port = process.env.PORT || 3000;
 const app = express();
