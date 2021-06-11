@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable, Subject } from 'rxjs';
 
@@ -7,7 +7,8 @@ import {LoginDetails} from '../LoginDetails';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
   })
 };
 
@@ -37,7 +38,9 @@ export class AccountService {
   }
 
   requestNewAccount(details: LoginDetails): Observable<LoginDetails> {
+    console.log(details);
     return this.http.post<LoginDetails>(`${this.apiUrl}/users`, details, httpOptions);
+    // return this.http.post<LoginDetails>(this.apiUrl, details, httpOptions);
     // return this.http.get<LoginDetails>(this.apiUrl);
   }
 }

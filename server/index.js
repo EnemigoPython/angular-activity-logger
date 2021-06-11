@@ -17,7 +17,7 @@ function checkOrCreateTables() {
     const sql = 
     `CREATE TABLE IF NOT EXISTS users(
         userID int AUTO_INCREMENT, 
-        username VARCHAR(255) NOT NULL, 
+        username VARCHAR(255) NOT NULL UNIQUE, 
         password VARCHAR(255) NOT NULL,
         PRIMARY KEY (userID));
     CREATE TABLE IF NOT EXISTS tasks(
@@ -52,15 +52,18 @@ const app = express();
 const server = http.createServer(app);
 const cors = require('cors');
 
-app.use('/users', usersRoute);
 app.use(express.urlencoded({
     extended: true
 }));
+
 app.use(cors({
     origin: "http://localhost:4200",
     methods: ["GET", "POST"],
-    credentials: true
 }));
+
+app.use(express.json());
+
+app.use('/users', usersRoute);
 
 app.get('/', (req, res) => {
     res.json({'Hello World': true});
