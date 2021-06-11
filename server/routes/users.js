@@ -1,9 +1,9 @@
 const express = require('express');
-const db = require('../db');
+const { db } = require('../db');
 const router = express.Router();
 
 async function createAccount(details) {
-    const result = db.query(
+    db.query(
         `INSERT INTO users
         (username, password)
         VALUES
@@ -11,9 +11,16 @@ async function createAccount(details) {
         [
             details.username,
             details.password
-        ]
-    );
-    if (!result.affectedRows) throw new Error("Database error");
+        ], (err, res) => {
+            console.log(res);
+            if (err) {
+                if (err.code === "ER_DUP_ENTRY") {
+                    return { message: err.code }
+                }
+                console.log(err.code);
+                throw err;
+            };
+        });
     return details;
 }
 
@@ -21,6 +28,7 @@ router.get("/", async (req, res) => {
     try {
         res.json({xd: 'hi'});
     } catch (err) {
+        console.error(err);
         res.json({ message: err });
     }
 });
@@ -30,6 +38,7 @@ router.post("/", async (req, res) => {
         res.json(await createAccount(req.body));
     }
     catch (err) {
+        console.error(err);
         res.json({ message: err });
     }
 });

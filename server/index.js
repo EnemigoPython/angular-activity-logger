@@ -1,17 +1,11 @@
 const http = require('http');
 const express = require('express');
 require('dotenv/config');
-const db = require('./db');
+const { bootstrap, db } = require('./db');
 
 const usersRoute = require('./routes/users');
 
-function checkOrCreateDb() {
-    const sql = 'CREATE DATABASE IF NOT EXISTS activitylogger;';
-    db.query(sql, (err, _result) => {
-        if (err) throw err;
-        console.log("Checking database...");
-    });
-}
+bootstrap();
 
 function checkOrCreateTables() {
     const sql = 
@@ -42,9 +36,8 @@ function checkOrCreateTables() {
 
 db.connect((err) => {
     if (err) throw err;
-    checkOrCreateDb();
-    checkOrCreateTables();
     console.log('Database connected...');
+    checkOrCreateTables();
 });
 
 const port = process.env.PORT || 3000;
