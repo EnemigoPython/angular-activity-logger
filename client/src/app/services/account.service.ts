@@ -34,8 +34,8 @@ export class AccountService {
     return this.subject.asObservable();
   }
 
-  requestLogin(details: LoginDetails): void {
-
+  requestLogin(details: LoginDetails): Observable<UserRes> {
+    return this.http.get<UserRes>(`${this.apiUrl}/users?=${details.username}`);
   }
 
   requestNewAccount(details: LoginDetails): Observable<UserRes> {
