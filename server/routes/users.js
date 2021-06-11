@@ -16,7 +16,7 @@ function createAccount(details) {
                 if (err) {
                     reject(err.code)
                 } else {
-                    resolve({username: details.username})
+                    resolve({ username: details.username, error: null })
                 };
             });
     });
@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
     }
     catch (err) {
         console.error(err);
-        res.json({ error: err });
+        res.json({ username: null, error: err });
     }
 });
 

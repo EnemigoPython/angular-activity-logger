@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { Observable, Subject } from 'rxjs';
 
 import {LoginDetails} from '../LoginDetails';
+import {UserRes} from '../UserRes';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -37,7 +38,7 @@ export class AccountService {
 
   }
 
-  requestNewAccount(details: LoginDetails): Observable<LoginDetails> {
+  requestNewAccount(details: LoginDetails): Observable<UserRes> {
     return this.http.post<LoginDetails>(`${this.apiUrl}/users`, details, httpOptions);
   }
 }

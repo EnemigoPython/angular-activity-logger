@@ -3,6 +3,8 @@
 
     <span class="spacer"></span>
 
+    <span *ngIf="currentAccount">{{currentAccount}}</span>
+
     <a routerLink='/login' mat-icon-button class="nav-btn" aria-label="login-icon" title="log in">
         <mat-icon>login</mat-icon>
     </a>
