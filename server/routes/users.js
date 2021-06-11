@@ -3,7 +3,7 @@ const { db } = require('../db');
 const router = express.Router();
 
 async function createAccount(details) {
-    db.query(
+    const result = db.query(
         `INSERT INTO users
         (username, password)
         VALUES
@@ -12,13 +12,12 @@ async function createAccount(details) {
             details.username,
             details.password
         ], (err, res) => {
-            console.log(res);
             if (err) {
                 if (err.code === "ER_DUP_ENTRY") {
                     return { message: err.code }
                 }
-                console.log(err.code);
-                throw err;
+            } else {
+                return details;
             };
         });
     return details;

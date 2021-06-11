@@ -5,8 +5,6 @@ const { bootstrap, db } = require('./db');
 
 const usersRoute = require('./routes/users');
 
-bootstrap();
-
 function checkOrCreateTables() {
     const sql = 
     `CREATE TABLE IF NOT EXISTS users(
@@ -30,13 +28,14 @@ function checkOrCreateTables() {
         FOREIGN KEY (taskID) REFERENCES tasks(taskID));`;
     db.query(sql, (err, _result) => {
         if (err) throw err;
+        console.log("Checking tables...");
     });
-    console.log("Checking tables...");
 }
 
-db.connect((err) => {
+db.connect(async (err) => {
     if (err) throw err;
     console.log('Database connected...');
+    await bootstrap()
     checkOrCreateTables();
 });
 
