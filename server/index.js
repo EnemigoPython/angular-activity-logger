@@ -65,7 +65,7 @@ app.use('/users', usersRoute);
 
 app.get('/', (req, res) => {
     res.json({'Hello World': true});
-    console.log('received')
+    console.log('received');
 });
 
 server.listen(port, () => {
