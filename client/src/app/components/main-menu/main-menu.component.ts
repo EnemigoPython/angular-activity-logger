@@ -15,6 +15,7 @@ import { LoginDetails } from '../../LoginDetails';
 export class MainMenuComponent implements OnInit {
   currentForm?: MenuForm;
   currentAccount: string | null = null;
+  serverError: string | null = null;
   hide: boolean = true;
 
   @Input() username = new FormControl('', [Validators.required]);
@@ -62,8 +63,16 @@ export class MainMenuComponent implements OnInit {
         value => {
           if (value.username) {
             this.accountService.setCurrentUser(value.username);
+          } else {
+            switch (value.error) {
+              case "ER_DUP_ENTRY":
+                this.serverError = "Username taken"
+                break;
+              default:
+                this.serverError = "Server error"
+            }
           }
-          console.log(value);
+          console.log(value, this.serverError);
         });
     }
   }
