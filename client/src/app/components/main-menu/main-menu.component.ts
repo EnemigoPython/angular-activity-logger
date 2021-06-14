@@ -76,6 +76,12 @@ export class MainMenuComponent implements OnInit {
               case "ER_DUP_ENTRY":
                 this.serverError = "Username already taken.";
                 break;
+              case "NO_ACC":
+                this.serverError = "Account not found.";
+                break;
+              case "PASS_INCORRECT":
+                this.serverError = "Incorrect password.";
+                break;
               default:
                 this.serverError = "Server error.";
             }
