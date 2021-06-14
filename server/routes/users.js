@@ -14,10 +14,10 @@ function createAccount(details) {
                 details.password
             ], (err) => {
                 if (err) {
-                    reject(err.code)
+                    reject(err.code);
                 } else {
-                    resolve({ username: details.username, error: null })
-                };
+                    resolve({ username: details.username, error: null });
+                }
             });
     });
     return result;
@@ -29,8 +29,7 @@ function attemptLogin(details) {
             `SELECT *
             FROM users
             WHERE username = ?`,
-            [ details.username ],
-            (err, res) => {
+            [details.username], (err, res) => {
                 if (err) {
                     reject(err.code);
                 } else {
@@ -40,20 +39,18 @@ function attemptLogin(details) {
                         if (res[0].password !== details.password) {
                             reject('PASS_INCORRECT');
                         } else {
-                            resolve({ username: details.username, error: null })
+                            resolve({ username: details.username, error: null });
                         }
                     }
-
                 }
-            }
-        )
+            });
     });
     return result;
 }
 
 router.get("/", async (req, res) => {
     try {
-        res.json({xd: 'hi'});
+        res.json({ xd: 'hi' });
     } catch (err) {
         console.error(err);
         res.json({ error: err });
