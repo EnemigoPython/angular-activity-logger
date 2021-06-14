@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable, Subject } from 'rxjs';
 
-import {LoginDetails} from '../LoginDetails';
-import {UserRes} from '../UserRes';
+import { LoginDetails } from '../LoginDetails';
+import { UserRes } from '../UserRes';
 
 const httpOptions = {
   headers: new HttpHeaders({

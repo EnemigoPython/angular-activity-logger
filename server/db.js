@@ -6,7 +6,6 @@ function bootstrap() {
             host                : process.env.HOST || 'localhost',
             user                : 'root',
             password            : process.env.PASSWORD,
-            multipleStatements  : true
         });
         
         const sql = 'CREATE DATABASE IF NOT EXISTS activitylogger;';

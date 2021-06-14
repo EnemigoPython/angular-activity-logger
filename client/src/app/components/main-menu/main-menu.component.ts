@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { UiService } from '../../services/ui.service';
 import { AccountService } from 'src/app/services/account.service';
@@ -24,7 +25,8 @@ export class MainMenuComponent implements OnInit {
 
   constructor(
     private uiService: UiService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    public dialog: MatDialog
     ) { }
 
   ngOnInit(): void {
@@ -66,15 +68,36 @@ export class MainMenuComponent implements OnInit {
           } else {
             switch (value.error) {
               case "ER_DUP_ENTRY":
-                this.serverError = "Username taken"
+                this.serverError = "Username already taken.";
                 break;
               default:
-                this.serverError = "Server error"
+                this.serverError = "Server error.";
             }
+            this.dialog.open(MenuDialog, {
+              data: this.serverError
+            });
           }
           console.log(value, this.serverError);
         });
     }
+  }
+
+}
+
+
+@Component({
+  selector: 'menu-dialog',
+  templateUrl: 'menu-dialog.html',
+  styleUrls: ['./main-menu.component.css']
+})
+export class MenuDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<MenuDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: string) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }
