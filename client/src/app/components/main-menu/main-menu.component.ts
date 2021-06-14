@@ -27,25 +27,25 @@ export class MainMenuComponent implements OnInit {
     private uiService: UiService,
     private accountService: AccountService,
     public dialog: MatDialog
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.currentForm = this.uiService.getPath() === '/register' ? 'Register' : 'Log in';
     this.uiService
-    .menuObserver()
-    .subscribe(
-      value => this.currentForm = value
-    );
+      .menuObserver()
+      .subscribe(
+        value => this.currentForm = value
+      );
     this.accountService
-    .accountObserver()
-    .subscribe(
-      value => this.currentAccount = value
-    );
+      .accountObserver()
+      .subscribe(
+        value => this.currentAccount = value
+      );
   }
 
   passwordsMatch(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      return this.password?.value === this.confirmPass?.value ? null : {notMatching: true};
+      return this.password?.value === this.confirmPass?.value ? null : { notMatching: true };
     };
   }
 
@@ -53,15 +53,21 @@ export class MainMenuComponent implements OnInit {
     this.uiService.setMenuForm(newForm);
   }
 
+  formIsValid(): boolean {
+    return this.currentForm === 'Log in' ?
+      ![this.username.valid, this.password.valid].includes(false) :
+      ![this.username.valid, this.password.valid, this.confirmPass.valid].includes(false)
+  }
+
   onSubmit(): void {
     const formValues: LoginDetails = {
       username: this.username.value,
-      password: this.password.value
+      password: this.password.value,
+      newAccount: this.currentForm === 'Register'
     }
-    if (this.currentForm === 'Log in' && this.username.valid && this.password.valid) {
-      this.accountService.requestLogin(formValues)
-    } else if (this.username.valid && this.password.valid && this.confirmPass.valid) {
-      this.accountService.requestNewAccount(formValues).subscribe(
+
+    if (this.formIsValid()) {
+      this.accountService.requestLogin(formValues).subscribe(
         value => {
           if (value.username) {
             this.accountService.setCurrentUser(value.username);
@@ -77,7 +83,6 @@ export class MainMenuComponent implements OnInit {
               data: this.serverError
             });
           }
-          console.log(value, this.serverError);
         });
     }
   }
@@ -94,7 +99,7 @@ export class MenuDialog {
 
   constructor(
     public dialogRef: MatDialogRef<MenuDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: string) {}
+    @Inject(MAT_DIALOG_DATA) public data: string) { }
 
   onNoClick(): void {
     this.dialogRef.close();
