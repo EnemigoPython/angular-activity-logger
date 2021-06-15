@@ -1,0 +1,12 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "dev",
+			"problemMatcher": [],
+			"label": "npm: dev",
+			"detail": "concurrently \"cd client && ng serve --open\" \"nodemon ./server/index.js\"",
+		}
+	]
+}

@@ -1,8 +1,10 @@
 const express = require('express');
 const { db } = require('../db');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 
 function createAccount(details) {
+    const passHash = bcrypt.hashSync(details.password, 10);
     const result = new Promise((resolve, reject) => {
         db.query(
             `INSERT INTO users
@@ -11,7 +13,7 @@ function createAccount(details) {
             (?, ?)`,
             [
                 details.username,
-                details.password
+                passHash
             ], (err) => {
                 if (err) {
                     reject(err.code);
@@ -36,10 +38,10 @@ function attemptLogin(details) {
                     if (res.length < 1) {
                         reject('NO_ACC');
                     } else {
-                        if (res[0].password !== details.password) {
-                            reject('PASS_INCORRECT');
-                        } else {
+                        if (bcrypt.compareSync(details.password, res[0].password)) {
                             resolve({ username: details.username, error: null });
+                        } else {
+                            reject('PASS_INCORRECT');
                         }
                     }
                 }
