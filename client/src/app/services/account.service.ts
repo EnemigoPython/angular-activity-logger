@@ -23,11 +23,18 @@ export class AccountService {
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {}
+
+  getStoredUser(): string | null {
+    return localStorage.getItem('currentUser');
+  }
 
   setCurrentUser(newUser: string) {
     this.currentUser = newUser;
     this.subject.next(this.currentUser);
+    if (!localStorage.getItem('currentUser')) {
+      localStorage.setItem('currentUser', this.currentUser);
+    }
   }
 
   accountObserver(): Observable<any> {
@@ -36,5 +43,9 @@ export class AccountService {
 
   requestLogin(details: LoginDetails): Observable<UserRes> {
     return this.http.post<UserRes>(`${this.apiUrl}/users`, details, httpOptions);
+  }
+
+  signOut(): void {
+    localStorage.removeItem('currentUser');
   }
 }
