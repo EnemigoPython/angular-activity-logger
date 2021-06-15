@@ -5,12 +5,22 @@
 
     <span *ngIf="currentAccount">{{currentAccount}}</span>
 
-    <a routerLink='/login' mat-icon-button class="nav-btn" aria-label="login-icon" title="log in">
-        <mat-icon>login</mat-icon>
-    </a>
+    <template *ngIf="currentAccount === null; then log_in else log_out"></template>
 
-    <a routerLink='/register' mat-icon-button class="nav-btn" aria-label="account_circle-icon" title="register">
-        <mat-icon>account_circle</mat-icon>
-    </a>
+    <ng-template #log_in>
+        <a routerLink='/login' mat-icon-button class="nav-btn" aria-label="login-icon" title="log in">
+            <mat-icon>login</mat-icon>
+        </a>
+    
+        <a routerLink='/register' mat-icon-button class="nav-btn" aria-label="account_circle-icon" title="register">
+            <mat-icon>account_circle</mat-icon>
+        </a>
+    </ng-template>
+
+    <ng-template #log_out>
+        <button (click)="signOut()" mat-icon-button class="nav-btn" aria-label="logout-icon" title="log out">
+            <mat-icon>logout</mat-icon>
+        </button>
+    </ng-template>
 
 </mat-toolbar>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AccountService } from 'src/app/services/account.service';
-import { UiService } from '../../services/ui.service';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +20,10 @@ export class HeaderComponent implements OnInit {
     .subscribe(
       value => this.currentAccount = value
     );
+  }
+
+  signOut(): void {
+    this.accountService.signOut();
   }
 
   title = 'Activity Logger';
