@@ -29,6 +29,10 @@ export class AccountService {
     return localStorage.getItem('currentUser');
   }
 
+  getCurrentUser(): string | null {
+    return this.currentUser;
+  }
+
   setCurrentUser(newUser: string) {
     this.currentUser = newUser;
     this.subject.next(this.currentUser);

@@ -14,10 +14,10 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): boolean {
     if (this.accountService.getStoredUser()) {
-      this.accountService.setCurrentUser(this.accountService.getStoredUser() || '')
+      this.accountService.setCurrentUser(this.accountService.getStoredUser() || '');
     }
+    console.log(this.router.url, this.accountService.getCurrentUser());
     return true;
-    // return this.accountService.isLoggedIn();
   }
   
 }

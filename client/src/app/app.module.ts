@@ -21,6 +21,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LandingComponent } from './components/landing/landing.component';
 
 import { AppComponent } from './app.component';
+import { LoggerComponent } from './components/logger/logger.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AppComponent } from './app.component';
     HeaderComponent,
     MainMenuComponent,
     FooterComponent,
-    LandingComponent
+    LandingComponent,
+    LoggerComponent
   ],
   imports: [
     FormsModule,
