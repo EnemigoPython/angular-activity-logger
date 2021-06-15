@@ -5,8 +5,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { UiService } from '../../services/ui.service';
 import { AccountService } from 'src/app/services/account.service';
 
-import { MenuForm } from '../../MenuForm';
-import { LoginDetails } from '../../LoginDetails';
+import { MenuForm } from '../../types/MenuForm';
+import { LoginDetails } from '../../types/LoginDetails';
 
 @Component({
   selector: 'app-main-menu',

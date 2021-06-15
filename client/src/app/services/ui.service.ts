@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable, Subject } from 'rxjs';
 
-import { MenuForm } from '../MenuForm';
+import { MenuForm } from '../types/MenuForm';
 
 @Injectable({
   providedIn: 'root'

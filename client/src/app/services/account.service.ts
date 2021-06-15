@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable, Subject } from 'rxjs';
 
-import { LoginDetails } from '../LoginDetails';
-import { UserRes } from '../UserRes';
+import { LoginDetails } from '../types/LoginDetails';
+import { UserRes } from '../types/UserRes';
 
 const httpOptions = {
   headers: new HttpHeaders({
