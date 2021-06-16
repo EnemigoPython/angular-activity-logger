@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { Observable, Subject } from 'rxjs';
-import { tap, map } from 'rxjs/operators';
 
 import { LoginDetails } from '../types/LoginDetails';
 import { UserRes } from '../types/UserRes';
@@ -65,7 +64,7 @@ export class AccountService {
     if (id) {
       this.router.navigateByUrl(`/user/${id}`);
     } else {
-      this.router.navigateByUrl(`/user/${this.currentID}`);
+      if (this.currentID > 0) this.router.navigateByUrl(`/user/${this.currentID}`);
     }
   }
 
