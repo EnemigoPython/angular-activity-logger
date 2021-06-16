@@ -22,6 +22,10 @@ export class HeaderComponent implements OnInit {
     );
   }
 
+  onClick(): void {
+    this.accountService.accountRedirect();
+  }
+
   signOut(): void {
     this.accountService.signOut();
   }
