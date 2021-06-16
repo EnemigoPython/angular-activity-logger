@@ -42,7 +42,9 @@ export class AccountService {
     this.subject.next(this.currentUser);
     localStorage.setItem('currentUser', this.currentUser);
     this.getCurrentID().subscribe(
-      result => this.currentID = result
+      result => {
+        this.currentID = result;
+      }
     );
   }
 

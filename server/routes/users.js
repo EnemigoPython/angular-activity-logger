@@ -15,8 +15,7 @@ function getID(account) {
                 if (err) {
                     reject(err.code);
                 } else {
-                    console.log(res);
-                    resolve();
+                    resolve(res[0].userID);
                 }
             }
         )
@@ -82,10 +81,8 @@ function attemptLogin(details) {
 }
 
 router.get("/id", async (req, res) => {
-    console.log(req.query);
-    console.log('hi');
     try {
-        res.json(await getID(req.query.account));
+        res.json(await getID(req.query.user));
     } catch (err) {
         console.error(err);
         res.json({ error: err });
