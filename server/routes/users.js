@@ -3,6 +3,10 @@ const { db } = require('../db');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 
+function getID(account) {
+    
+}
+
 function createAccount(details) {
     const passHash = bcrypt.hashSync(details.password, 10);
     const result = new Promise((resolve, reject) => {
@@ -60,7 +64,7 @@ function attemptLogin(details) {
     return result;
 }
 
-router.get("/", async (req, res) => {
+router.get("/id", async (req, res) => {
     try {
         res.json({ xd: 'hi' });
     } catch (err) {

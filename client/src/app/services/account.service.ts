@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { Observable, Subject } from 'rxjs';
@@ -20,6 +20,7 @@ const httpOptions = {
 export class AccountService {
   private apiUrl = environment.API_URL;
   private currentUser: string | null = null;
+  private currentID: number = 0;
   private subject = new Subject<any>();
 
   constructor(
@@ -41,6 +42,13 @@ export class AccountService {
     localStorage.setItem('currentUser', this.currentUser);
   }
 
+  getCurrentID(): Observable<number> | void {
+    if (this.currentUser) {
+      const params = new HttpParams().set("user", this.currentUser)
+      return this.http.get<number>(`${this.apiUrl}/users/id`, {params: params})
+    }
+  }
+
   accountObserver(): Observable<any> {
     return this.subject.asObservable();
   }
@@ -50,7 +58,7 @@ export class AccountService {
   }
 
   accountRedirect(id: number) {
-    
+    this.router.navigateByUrl(`/user/${id}`);
   }
 
   signOut(): void {
