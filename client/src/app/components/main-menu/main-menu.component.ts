@@ -19,8 +19,8 @@ export class MainMenuComponent implements OnInit {
   serverError: string | null = null;
   hide: boolean = true;
 
-  @Input() username = new FormControl('', [Validators.required]);
-  @Input() password = new FormControl('', [Validators.required]);
+  @Input() username = new FormControl('', [Validators.required, Validators.maxLength(20)]);
+  @Input() password = new FormControl('', [Validators.required, Validators.maxLength(20)]);
   @Input() confirmPass = new FormControl('', [Validators.required, this.passwordsMatch()]);
 
   constructor(

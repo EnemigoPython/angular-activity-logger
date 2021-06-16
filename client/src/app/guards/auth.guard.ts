@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate } from '@angular/router';
 
 import { AccountService } from '../services/account.service'
 
@@ -8,15 +8,13 @@ import { AccountService } from '../services/account.service'
 })
 export class AuthGuard implements CanActivate {
   constructor(
-    private accountService: AccountService,
-    private router: Router
+    private accountService: AccountService
   ) {}
 
   canActivate(): boolean {
-    if (this.accountService.getStoredUser()) {
+    if (this.accountService.getStoredUser() && !this.accountService.getCurrentUser()) {
       this.accountService.setCurrentUser(this.accountService.getStoredUser() || '');
     }
-    console.log(this.router.url, this.accountService.getCurrentUser());
     return true;
   }
   

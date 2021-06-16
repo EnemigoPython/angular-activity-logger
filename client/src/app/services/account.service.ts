@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { Observable, Subject } from 'rxjs';
 
@@ -22,7 +23,8 @@ export class AccountService {
   private subject = new Subject<any>();
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {}
 
   getStoredUser(): string | null {
@@ -36,9 +38,7 @@ export class AccountService {
   setCurrentUser(newUser: string) {
     this.currentUser = newUser;
     this.subject.next(this.currentUser);
-    if (!localStorage.getItem('currentUser')) {
-      localStorage.setItem('currentUser', this.currentUser);
-    }
+    localStorage.setItem('currentUser', this.currentUser);
   }
 
   accountObserver(): Observable<any> {

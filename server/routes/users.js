@@ -14,7 +14,8 @@ function createAccount(details) {
             [
                 details.username,
                 passHash
-            ], (err) => {
+            ], (err, res) => {
+                console.log(res);
                 if (err) {
                     reject(err.code);
                 } else {
@@ -31,7 +32,9 @@ function attemptLogin(details) {
             `SELECT *
             FROM users
             WHERE username = ?`,
-            [details.username], (err, res) => {
+            [
+                details.username
+            ], (err, res) => {
                 if (err) {
                     reject(err.code);
                 } else {
