@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { Observable, Subject } from 'rxjs';
+import { tap, map } from 'rxjs/operators';
 
 import { LoginDetails } from '../types/LoginDetails';
 import { UserRes } from '../types/UserRes';
@@ -40,13 +41,14 @@ export class AccountService {
     this.currentUser = newUser;
     this.subject.next(this.currentUser);
     localStorage.setItem('currentUser', this.currentUser);
+    this.getCurrentID().subscribe(
+      result => this.currentID = result
+    );
   }
 
-  getCurrentID(): Observable<number> | void {
-    if (this.currentUser) {
-      const params = new HttpParams().set("user", this.currentUser)
-      return this.http.get<number>(`${this.apiUrl}/users/id`, {params: params})
-    }
+  getCurrentID(): Observable<number> {
+    const params = new HttpParams().set("user", this.currentUser || '')
+    return this.http.get<number>(`${this.apiUrl}/users/id`, {params: params});
   }
 
   accountObserver(): Observable<any> {
@@ -57,8 +59,12 @@ export class AccountService {
     return this.http.post<UserRes>(`${this.apiUrl}/users`, details, httpOptions);
   }
 
-  accountRedirect(id: number) {
-    this.router.navigateByUrl(`/user/${id}`);
+  accountRedirect(id?: number) {
+    if (id) {
+      this.router.navigateByUrl(`/user/${id}`);
+    } else {
+      this.router.navigateByUrl(`/user/${this.currentID}`);
+    }
   }
 
   signOut(): void {

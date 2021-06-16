@@ -4,7 +4,24 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 
 function getID(account) {
-    
+    const result = new Promise((resolve, reject) => {
+        db.query(
+            `SELECT (userID)
+            FROM users
+            WHERE username = ?`,
+            [
+                account
+            ], (err, res) => {
+                if (err) {
+                    reject(err.code);
+                } else {
+                    console.log(res);
+                    resolve();
+                }
+            }
+        )
+    });
+    return result;
 }
 
 function createAccount(details) {
@@ -65,8 +82,10 @@ function attemptLogin(details) {
 }
 
 router.get("/id", async (req, res) => {
+    console.log(req.query);
+    console.log('hi');
     try {
-        res.json({ xd: 'hi' });
+        res.json(await getID(req.query.account));
     } catch (err) {
         console.error(err);
         res.json({ error: err });
