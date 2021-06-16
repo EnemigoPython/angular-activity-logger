@@ -15,11 +15,14 @@ function createAccount(details) {
                 details.username,
                 passHash
             ], (err, res) => {
-                console.log(res);
                 if (err) {
                     reject(err.code);
                 } else {
-                    resolve({ username: details.username, error: null });
+                    resolve({ 
+                        username: details.username, 
+                        error: null,
+                        id: res.insertId 
+                    });
                 }
             });
     });
@@ -42,7 +45,11 @@ function attemptLogin(details) {
                         reject('NO_ACC');
                     } else {
                         if (bcrypt.compareSync(details.password, res[0].password)) {
-                            resolve({ username: details.username, error: null });
+                            resolve({ 
+                                username: details.username, 
+                                error: null,
+                                id: res[0].userID 
+                            });
                         } else {
                             reject('PASS_INCORRECT');
                         }
@@ -71,7 +78,11 @@ router.post("/", async (req, res) => {
         }
     } catch (err) {
         console.error(err);
-        res.json({ username: null, error: err });
+        res.json({ 
+            username: null, 
+            error: err,
+            id: 0 
+        });
     }
 });
 

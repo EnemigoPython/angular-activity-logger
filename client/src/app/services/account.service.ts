@@ -49,6 +49,10 @@ export class AccountService {
     return this.http.post<UserRes>(`${this.apiUrl}/users`, details, httpOptions);
   }
 
+  accountRedirect(id: number) {
+    
+  }
+
   signOut(): void {
     this.currentUser = null;
     this.subject.next(this.currentUser);

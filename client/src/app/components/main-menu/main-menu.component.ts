@@ -71,6 +71,7 @@ export class MainMenuComponent implements OnInit {
         value => {
           if (value.username) {
             this.accountService.setCurrentUser(value.username);
+            this.accountService.accountRedirect(value.id);
           } else {
             switch (value.error) {
               case "ER_DUP_ENTRY":
