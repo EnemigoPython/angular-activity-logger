@@ -6,12 +6,13 @@ import { LoggerComponent } from './components/logger/logger.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 
 import { AuthGuard } from './guards/auth.guard'
+import { UsersGuard } from './guards/users.guard'
 
 const routes: Routes = [
   { path: '', component: LandingComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: MainMenuComponent },
-  { path: 'register', component: MainMenuComponent },
-  { path: 'user/:id', component: LoggerComponent },
+  { path: 'login', component: MainMenuComponent, canActivate: [AuthGuard] },
+  { path: 'register', component: MainMenuComponent, canActivate: [AuthGuard] },
+  { path: 'user/:id', component: LoggerComponent, canActivate: [UsersGuard] },
   { path: '**', redirectTo: '' }
 ];
 

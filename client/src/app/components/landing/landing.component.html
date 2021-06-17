@@ -10,9 +10,23 @@
         It was made with <em>Angular</em>, <em>MySQL</em>, and <em>Node.js</em>.
     </p>
 
-    <p>
-        To get started, <a routerLink='/login'>log in</a> or <a routerLink="/register">register</a>. 
-        <br />
-        To view the <em>Github</em> page for this project, <a href='https://github.com/EnemigoPython/angular-activity-logger' target="_blank">click here</a>.
-    </p>
+    <template *ngIf="currentAccount === null; then not_logged_in else logged_in"></template>
+
+    
+    <ng-template #not_logged_in>
+        <p>
+            To get started, <a routerLink='/login'>log in</a> or <a routerLink="/register">register</a>. 
+            <br />
+            To view the <em>Github</em> page for this project, <a href='https://github.com/EnemigoPython/angular-activity-logger' target="_blank">click here</a>.
+        </p>
+    </ng-template>
+
+
+    <ng-template #logged_in>
+        <p>
+            You are currently logged in as <button *ngIf="currentAccount" (click)="onClick()" class="disguisedButton">{{currentAccount}}</button>.
+            <br />
+            To view the <em>Github</em> page for this project, <a href='https://github.com/EnemigoPython/angular-activity-logger' target="_blank">click here</a>.
+        </p>
+    </ng-template>
 </article>

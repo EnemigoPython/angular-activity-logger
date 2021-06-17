@@ -6,3 +6,11 @@ h1 {
 p {
     font-variant: small-caps;
 }
+
+.disguisedButton {
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    text-decoration: underline;
+    cursor: pointer;
+  }

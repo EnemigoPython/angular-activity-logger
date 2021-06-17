@@ -72,5 +72,6 @@ export class AccountService {
     this.currentUser = null;
     this.subject.next(this.currentUser);
     localStorage.removeItem('currentUser');
+    this.router.navigateByUrl('/');
   }
 }
