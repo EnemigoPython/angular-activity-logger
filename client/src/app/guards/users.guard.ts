@@ -15,7 +15,7 @@ export class UsersGuard implements CanActivate {
   currentAccount: string | null = this.accountService.getCurrentUser();
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    // check that logged account matches id of request
+    // check that logged account matches id of request, else boot them
     if (this.currentAccount !== null) {
       this.accountService.getCurrentID()
       .toPromise()

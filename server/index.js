@@ -4,6 +4,7 @@ require('dotenv/config');
 const { bootstrap, db } = require('./db');
 
 const usersRoute = require('./routes/users');
+const activitiesRoute = require('./routes/activities');
 
 (async () => {
     await bootstrap();
@@ -62,6 +63,7 @@ app.use(cors({
 app.use(express.json());
 
 app.use('/users', usersRoute);
+app.use('/activities', activitiesRoute);
 
 app.get('/', (req, res) => {
     res.json({'Hello World': true});
