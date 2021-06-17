@@ -1,15 +1,33 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Router, ActivatedRouteSnapshot, CanActivate } from '@angular/router';
+
+import { AccountService } from '../services/account.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersGuard implements CanActivate {
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      console.log(route.url);
+  constructor(
+    private accountService: AccountService,
+    private router: Router
+    ) {}
+
+  currentAccount: string | null = this.accountService.getCurrentUser();
+
+  canActivate(route: ActivatedRouteSnapshot): boolean {
+    // check that logged account matches id of request
+    if (this.currentAccount !== null) {
+      this.accountService.getCurrentID()
+      .toPromise()
+      .then(id => {
+        if (parseInt(route.url[1].path) !== id) {
+          this.router.navigateByUrl('/');
+        }
+      })
+      .catch(err => console.error(err));
+    } else {
+      this.router.navigateByUrl('/');
+    }
     return true;
   }
   
