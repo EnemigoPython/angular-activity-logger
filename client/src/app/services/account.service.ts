@@ -40,11 +40,10 @@ export class AccountService {
     this.currentUser = newUser;
     this.subject.next(this.currentUser);
     localStorage.setItem('currentUser', this.currentUser);
-    this.getCurrentID().subscribe(
-      result => {
-        this.currentID = result;
-      }
-    );
+    this.getCurrentID().toPromise()
+    .then(id => {
+      this.currentID = id;
+    });
   }
 
   getCurrentID(): Observable<number> {
