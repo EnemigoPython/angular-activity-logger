@@ -10,7 +10,7 @@ const ELEMENT_DATA: Object[] = [
     month: "2-digit",
     day: "2-digit",
   }),
-test: "axzczxcsdferdgsdfsdf"}
+  test: "unreported"}
 ];
 
 @Component({
@@ -19,8 +19,9 @@ test: "axzczxcsdferdgsdfsdf"}
   styleUrls: ['./logger.component.css']
 })
 export class LoggerComponent implements OnInit {
-  displayedColumns: string[] = ['date', 'test', 'xyz'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  displayedColumns: string[] = ['date', 'test'];
+  displayedData = [...ELEMENT_DATA]
+  dataSource = new MatTableDataSource(this.displayedData);
   @Input() activityName: string = '';
   constructor() { }
 
@@ -32,8 +33,14 @@ export class LoggerComponent implements OnInit {
   }
 
   addActivity() {
-    this.displayedColumns.push(this.activityName);
-    this.activityName = '';
+    if (!this.displayedColumns.includes(this.activityName)) {
+      this.displayedData[0] = {...this.displayedData[0], [this.activityName]: 'unreported'};
+      this.displayedColumns.push(this.activityName);
+      console.log(this.displayedData == this.dataSource.data);
+      this.activityName = '';
+    }
+    // this.displayedData = [...ELEMENT_DATA, {[this.activityName]: 'unreported'}];
+    // this.displayedData = [...this.displayedData, {[this.activityName]: 'unreported'}];
   }
 
   removeActivity() {
