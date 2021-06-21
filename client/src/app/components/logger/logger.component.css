@@ -17,3 +17,7 @@ td:not(:first-child):hover {
   height: min-content;
   align-self: center;
 }
+
+mat-icon {
+  font-size: inherit;
+}
