@@ -42,7 +42,14 @@ export class AccountService {
     localStorage.setItem('currentUser', this.currentUser);
     this.getCurrentID().toPromise()
     .then(id => {
+      if (typeof id !== 'number') {
+        throw new Error("Validation Error");
+      }
       this.currentID = id;
+    })
+    .catch(err => {
+      console.error(err);
+      this.signOut();
     });
   }
 

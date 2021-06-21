@@ -33,8 +33,8 @@ export class LoggerComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  test() {
-    console.log("test");
+  test(row: string[]) {
+    console.log(row);
   }
 
 }

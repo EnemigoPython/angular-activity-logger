@@ -26,20 +26,20 @@ function checkOrCreateTables() {
         username VARCHAR(255) NOT NULL UNIQUE, 
         password VARCHAR(255) NOT NULL,
         PRIMARY KEY (userID));
-    CREATE TABLE IF NOT EXISTS tasks(
-        taskID int AUTO_INCREMENT, 
+    CREATE TABLE IF NOT EXISTS activities(
+        activityID int AUTO_INCREMENT, 
         userID int NOT NULL, 
-        taskname VARCHAR(255) NOT NULL,
-        PRIMARY KEY (taskID),
+        activityname VARCHAR(255) NOT NULL,
+        PRIMARY KEY (activityID),
         FOREIGN KEY (userID) REFERENCES users(userID));
-    CREATE TABLE IF NOT EXISTS taskdata(
+    CREATE TABLE IF NOT EXISTS activitydata(
         dataID int AUTO_INCREMENT,
-        taskID int NOT NULL,
+        activityID int NOT NULL,
         date datetime NOT NULL,
         state tinyint NOT NULL,
         notes VARCHAR(255),
         PRIMARY KEY (dataID),
-        FOREIGN KEY (taskID) REFERENCES tasks(taskID));`;
+        FOREIGN KEY (activityID) REFERENCES activities(activityID));`;
     db.query(sql, (err, _result) => {
         if (err) throw err;
         console.log("Checking tables...");
