@@ -32,7 +32,6 @@ export class LoggerComponent implements OnInit {
   }
 
   addActivity() {
-    console.log(this.activityName);
     this.displayedColumns.push(this.activityName);
     this.activityName = '';
   }

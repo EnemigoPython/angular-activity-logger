@@ -2,6 +2,11 @@ td, th {
   padding: 5px 30px !important;
 }
 
+td:not(:first-child):hover {
+  background-color: lightblue;
+  cursor: pointer;
+}
+
 .submitForm {
   display: flex;
   margin-top: 10px;
