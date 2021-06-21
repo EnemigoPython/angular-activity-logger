@@ -3,7 +3,7 @@
 
     <span class="spacer"></span>
 
-    <template *ngIf="currentAccount === null; then log_in else log_out"></template>
+    <ng-container *ngIf="currentAccount === null; then log_in else log_out"></ng-container>
 
     <ng-template #log_in>
         <a routerLink='/login' mat-icon-button class="nav-btn" aria-label="login-icon" matTooltip="log in">

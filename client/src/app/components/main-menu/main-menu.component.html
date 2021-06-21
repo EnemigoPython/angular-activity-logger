@@ -35,7 +35,7 @@
                     </button>
                 </mat-form-field>
             </div>
-            <template *ngIf="currentForm ==='Register'; then confirm_password"></template>
+            <ng-container *ngIf="currentForm ==='Register'; then confirm_password"></ng-container>
             <ng-template #confirm_password>
                 <mat-form-field>
                     <mat-label>Confirm password</mat-label>

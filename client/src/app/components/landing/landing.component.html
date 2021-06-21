@@ -10,7 +10,7 @@
         It was made with <em>Angular</em>, <em>MySQL</em>, and <em>Node.js</em>.
     </p>
 
-    <template *ngIf="currentAccount === null; then not_logged_in else logged_in"></template>
+    <ng-container *ngIf="currentAccount === null; then not_logged_in else logged_in"></ng-container>
 
     
     <ng-template #not_logged_in>
