@@ -42,8 +42,12 @@ export class LoggerComponent implements OnInit {
     this.activityName = '';
   }
 
-  removeActivity() {
-
+  removeActivity(activity: string) {
+    this.displayedColumns = this.displayedColumns.filter(col => col !== activity);
+    this.dataSource.data = this.dataSource.data.map(row => {
+      delete (row as any)[activity];
+      return {...row};
+    });
   }
 
 }

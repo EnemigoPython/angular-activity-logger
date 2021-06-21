@@ -3,7 +3,7 @@
 
     <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns; let i=index">
       <th mat-header-cell *matHeaderCellDef> {{column}}
-        <button *ngIf="i > 0" mat-icon-button aria-label="delete">
+        <button *ngIf="i > 0" (click)="removeActivity(column)" mat-icon-button aria-label="delete">
           <mat-icon>close</mat-icon>
         </button> 
       </th>
