@@ -19,6 +19,6 @@
         <mat-label>Add Activity</mat-label>
         <input matInput name="activityName" [(ngModel)]="activityName">
       </mat-form-field>
-      <button mat-stroked-button (click)="addActivity()">Add</button>
+      <button mat-stroked-button (click)="activityName ? addActivity() : ''">Add</button>
     </form>
   </mat-card>
