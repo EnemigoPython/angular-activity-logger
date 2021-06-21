@@ -45,8 +45,10 @@ export class LoggerComponent implements OnInit {
   removeActivity(activity: string) {
     this.displayedColumns = this.displayedColumns.filter(col => col !== activity);
     this.dataSource.data = this.dataSource.data.map(row => {
+      // hopefully the any clause can be removed by proper typing at the next stage
+      // e.g. https://stackoverflow.com/questions/56568423/typescript-no-index-signature-with-a-parameter-of-type-string-was-found-on-ty/56569217
       delete (row as any)[activity];
-      return {...row};
+      return row;
     });
   }
 
