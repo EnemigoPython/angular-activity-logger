@@ -34,13 +34,12 @@ export class LoggerComponent implements OnInit {
 
   addActivity() {
     if (!this.displayedColumns.includes(this.activityName)) {
-      this.displayedData[0] = {...this.displayedData[0], [this.activityName]: 'unreported'};
+      this.dataSource.data = this.dataSource.data.map(row => {
+        return {...row, [this.activityName]: 'unreported'};
+      });
       this.displayedColumns.push(this.activityName);
-      console.log(this.displayedData == this.dataSource.data);
-      this.activityName = '';
     }
-    // this.displayedData = [...ELEMENT_DATA, {[this.activityName]: 'unreported'}];
-    // this.displayedData = [...this.displayedData, {[this.activityName]: 'unreported'}];
+    this.activityName = '';
   }
 
   removeActivity() {
