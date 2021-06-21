@@ -1,24 +1,24 @@
 <mat-toolbar>
-    <a class="logo" href='/'>{{title}}</a>
+    <a class="logo" href='/' matTooltip="home">{{title}}</a>
 
     <span class="spacer"></span>
 
     <template *ngIf="currentAccount === null; then log_in else log_out"></template>
 
     <ng-template #log_in>
-        <a routerLink='/login' mat-icon-button class="nav-btn" aria-label="login-icon" title="log in">
+        <a routerLink='/login' mat-icon-button class="nav-btn" aria-label="login-icon" matTooltip="log in">
             <mat-icon>login</mat-icon>
         </a>
     
-        <a routerLink='/register' mat-icon-button class="nav-btn" aria-label="account_circle-icon" title="register">
+        <a routerLink='/register' mat-icon-button class="nav-btn" aria-label="account_circle-icon" matTooltip="register">
             <mat-icon>account_circle</mat-icon>
         </a>
     </ng-template>
 
     <ng-template #log_out>
-        <button *ngIf="currentAccount" (click)="onClick()" class="plainButton">{{currentAccount}}</button>
+        <button *ngIf="currentAccount" (click)="onClick()" class="plainButton" matTooltip="activities">{{currentAccount}}</button>
 
-        <button (click)="signOut()" mat-icon-button class="nav-btn" aria-label="logout-icon" title="log out">
+        <button (click)="signOut()" mat-icon-button class="nav-btn" aria-label="logout-icon" matTooltip="log out">
             <mat-icon>logout</mat-icon>
         </button>
     </ng-template>

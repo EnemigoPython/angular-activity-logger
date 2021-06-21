@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table'
 
 const date = new Date();
 
 const ELEMENT_DATA: Object[] = [
-  {date: date.toLocaleDateString("en-GB", {
+  {date: date.toLocaleDateString("en-GB", 
+  {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
-  })}
+  }),
+test: "axzczxcsdferdgsdfsdf"}
 ];
 
 @Component({
@@ -17,8 +19,9 @@ const ELEMENT_DATA: Object[] = [
   styleUrls: ['./logger.component.css']
 })
 export class LoggerComponent implements OnInit {
-  displayedColumns: string[] = ['date'];
+  displayedColumns: string[] = ['date', 'test', 'xyz'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
+  @Input() activityName: string = '';
   constructor() { }
 
   ngOnInit(): void {
@@ -26,6 +29,10 @@ export class LoggerComponent implements OnInit {
 
   test(row: string[]) {
     console.log(row);
+  }
+
+  addActivity() {
+    console.log(this.activityName);
   }
 
 }

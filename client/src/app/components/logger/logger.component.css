@@ -5,3 +5,14 @@ table {
 td, th {
   padding: 5px 30px !important;
 }
+
+.submitForm {
+  display: flex;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.submitForm button {
+  height: min-content;
+  align-self: center;
+}
