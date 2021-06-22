@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { ActivityRow } from '../..//types/ActivityRow';
+import { ActivityRow } from '../../types/ActivityRow';
 
 const date = new Date();
 

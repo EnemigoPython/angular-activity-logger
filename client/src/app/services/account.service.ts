@@ -54,7 +54,7 @@ export class AccountService {
   }
 
   getCurrentID(): Observable<number> {
-    const params = new HttpParams().set("user", this.currentUser || '')
+    const params = new HttpParams().set("user", this.currentUser!);
     return this.http.get<number>(`${this.apiUrl}/users/id`, {params: params});
   }
 
