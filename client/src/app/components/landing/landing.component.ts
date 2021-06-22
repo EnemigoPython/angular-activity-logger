@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AccountService } from 'src/app/services/account.service';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-landing',
