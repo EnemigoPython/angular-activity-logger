@@ -1,4 +1,5 @@
+import { Activity } from './Activity';
+
 export interface ActivityRow {
-    date: string,
-    [key: string]: string
+    [key: string]: Activity["name"]
 }
