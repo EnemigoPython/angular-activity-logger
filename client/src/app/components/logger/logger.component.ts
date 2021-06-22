@@ -36,7 +36,7 @@ export class LoggerComponent implements AfterViewInit {
   ) { }
 
   ngAfterViewInit() {
-    this.accountService.ObserverID()
+    this.accountService.observerID()
     .subscribe(
       id => {
         if (id > 0) {

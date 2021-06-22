@@ -49,6 +49,7 @@ export class AccountService {
       }
       this.currentID = id;
       this.subjectID.next(this.currentID);
+      this.lazySubjectID.next(this.currentID);
     })
     .catch(err => {
       console.error(err);
@@ -61,7 +62,7 @@ export class AccountService {
     return this.http.get<number>(`${this.apiUrl}/users/id`, {params: params});
   }
 
-  ObserverID(): Observable<any> {
+  observerID(): Observable<any> {
     return this.subjectID.asObservable();
   }
 

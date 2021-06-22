@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRouteSnapshot, CanActivate } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 import { AccountService } from '../services/account.service';
 
@@ -18,17 +20,17 @@ export class UsersGuard implements CanActivate {
     // check that logged account matches id of request, else boot them
     if (this.currentAccount !== null) {
       this.accountService.lazyObserverID()
-        .subscribe(
-          id => {
-            if (id > 0 && parseInt(route.url[1].path) !== id) {
-              this.router.navigateByUrl('/');
-            }
+      .subscribe(
+        id => {
+          if (id > 0 && parseInt(route.url[1].path) !== id) {
+            this.router.navigateByUrl('/');
           }
-        )
-    } else {
-      this.router.navigateByUrl('/');
-    }
-    return true;
+        }
+      )
+  } else {
+    this.router.navigateByUrl('/');
   }
+  return true;
+}
   
 }
