@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 
 import { LoginDetails } from '../types/LoginDetails';
 import { UserRes } from '../types/UserRes';
@@ -21,8 +21,9 @@ export class AccountService {
   private apiUrl = environment.API_URL;
   private currentUser: string | null = null;
   private currentID: number = 0;
-  private accountSubject = new Subject<any>();
-  private subjectID = new Subject<any>();
+  private accountSubject = new Subject<string | null>();
+  private subjectID = new BehaviorSubject<number>(0);
+  private lazySubjectID = new Subject<number>();
 
   constructor(
     private http: HttpClient,
@@ -62,6 +63,10 @@ export class AccountService {
 
   ObserverID(): Observable<any> {
     return this.subjectID.asObservable();
+  }
+
+  lazyObserverID(): Observable<any> {
+    return this.lazySubjectID.asObservable();
   }
   
   accountObserver(): Observable<any> {

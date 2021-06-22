@@ -1,6 +1,5 @@
 import { Component, AfterViewInit, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { tap } from 'rxjs/operators';
 
 import { AccountService } from 'src/app/services/account.service';
 import { ActivitiesService } from 'src/app/services/activities.service';
@@ -28,6 +27,7 @@ export class LoggerComponent implements AfterViewInit {
   displayedColumns: string[] = ['date', 'test'];
   displayedData = [...ELEMENT_DATA];
   dataSource = new MatTableDataSource(this.displayedData);
+  currentID?: number;
   @Input() activityName: string = '';
 
   constructor(
@@ -37,16 +37,16 @@ export class LoggerComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.accountService.ObserverID()
-      .subscribe(
-        id => {
-          // if (id > 0) {
-            this.activitiesService.getUserActivities(id)
-              .subscribe(
-                data => console.log(data)
-              )
-          // }
+    .subscribe(
+      id => {
+        if (id > 0) {
+          this.activitiesService.getUserActivities(id)
+          .subscribe(
+            data => console.log(data)
+          );
         }
-      );
+      }
+    );
   }
 
   test(row: string[]) {
