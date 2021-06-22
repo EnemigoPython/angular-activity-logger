@@ -1,5 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, AfterViewInit, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { tap } from 'rxjs/operators';
+
+import { AccountService } from 'src/app/services/account.service';
+import { ActivitiesService } from 'src/app/services/activities.service';
 
 import { ActivityRow } from '../../types/ActivityRow';
 
@@ -20,14 +24,29 @@ const ELEMENT_DATA: ActivityRow[] = [
   templateUrl: './logger.component.html',
   styleUrls: ['./logger.component.css']
 })
-export class LoggerComponent implements OnInit {
+export class LoggerComponent implements AfterViewInit {
   displayedColumns: string[] = ['date', 'test'];
-  displayedData = [...ELEMENT_DATA]
+  displayedData = [...ELEMENT_DATA];
   dataSource = new MatTableDataSource(this.displayedData);
   @Input() activityName: string = '';
-  constructor() { }
 
-  ngOnInit(): void {
+  constructor(
+    private accountService: AccountService,
+    private activitiesService: ActivitiesService
+  ) { }
+
+  ngAfterViewInit() {
+    this.accountService.ObserverID()
+      .subscribe(
+        id => {
+          // if (id > 0) {
+            this.activitiesService.getUserActivities(id)
+              .subscribe(
+                data => console.log(data)
+              )
+          // }
+        }
+      );
   }
 
   test(row: string[]) {

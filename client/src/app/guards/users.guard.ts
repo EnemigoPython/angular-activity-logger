@@ -17,14 +17,14 @@ export class UsersGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): boolean {
     // check that logged account matches id of request, else boot them
     if (this.currentAccount !== null) {
-      this.accountService.retrieveFromServerID()
-      .toPromise()
-      .then(id => {
-        if (parseInt(route.url[1].path) !== id) {
-          this.router.navigateByUrl('/');
-        }
-      })
-      .catch(err => console.error(err));
+      this.accountService.ObserverID()
+        .subscribe(
+          id => {
+            if (parseInt(route.url[1].path) !== id) {
+                  this.router.navigateByUrl('/');
+            }
+          }
+        )
     } else {
       this.router.navigateByUrl('/');
     }

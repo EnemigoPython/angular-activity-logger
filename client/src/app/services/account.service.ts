@@ -21,7 +21,8 @@ export class AccountService {
   private apiUrl = environment.API_URL;
   private currentUser: string | null = null;
   private currentID: number = 0;
-  private subject = new Subject<any>();
+  private accountSubject = new Subject<any>();
+  private subjectID = new Subject<any>();
 
   constructor(
     private http: HttpClient,
@@ -38,14 +39,15 @@ export class AccountService {
 
   setCurrentUser(newUser: string) {
     this.currentUser = newUser;
-    this.subject.next(this.currentUser);
+    this.accountSubject.next(this.currentUser);
     localStorage.setItem('currentUser', this.currentUser);
-    this.retrieveFromServerID().toPromise()
+    this.getCurrentID().toPromise()
     .then(id => {
       if (typeof id !== 'number') {
         throw new Error("Validation Error");
       }
       this.currentID = id;
+      this.subjectID.next(this.currentID);
     })
     .catch(err => {
       console.error(err);
@@ -53,17 +55,17 @@ export class AccountService {
     });
   }
 
-  retrieveFromServerID(): Observable<number> {
+  getCurrentID(): Observable<number> {
     const params = new HttpParams().set("user", this.currentUser!);
     return this.http.get<number>(`${this.apiUrl}/users/id`, {params: params});
   }
 
-  getCurrentID(): number {
-    return this.currentID;
+  ObserverID(): Observable<any> {
+    return this.subjectID.asObservable();
   }
   
   accountObserver(): Observable<any> {
-    return this.subject.asObservable();
+    return this.accountSubject.asObservable();
   }
 
   requestLogin(details: LoginDetails): Observable<UserRes> {
@@ -80,7 +82,7 @@ export class AccountService {
 
   signOut(): void {
     this.currentUser = null;
-    this.subject.next(this.currentUser);
+    this.accountSubject.next(this.currentUser);
     localStorage.removeItem('currentUser');
     this.router.navigateByUrl('/');
   }
