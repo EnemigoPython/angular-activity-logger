@@ -17,7 +17,7 @@ export class UsersGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): boolean {
     // check that logged account matches id of request, else boot them
     if (this.currentAccount !== null) {
-      this.accountService.getCurrentID()
+      this.accountService.retrieveFromServerID()
       .toPromise()
       .then(id => {
         if (parseInt(route.url[1].path) !== id) {

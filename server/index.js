@@ -35,7 +35,7 @@ function checkOrCreateTables() {
     CREATE TABLE IF NOT EXISTS activitydata(
         dataID int AUTO_INCREMENT,
         activityID int NOT NULL,
-        date datetime NOT NULL,
+        date date NOT NULL,
         state tinyint NOT NULL,
         notes VARCHAR(255),
         PRIMARY KEY (dataID),

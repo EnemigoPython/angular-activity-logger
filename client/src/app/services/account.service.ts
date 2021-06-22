@@ -40,7 +40,7 @@ export class AccountService {
     this.currentUser = newUser;
     this.subject.next(this.currentUser);
     localStorage.setItem('currentUser', this.currentUser);
-    this.getCurrentID().toPromise()
+    this.retrieveFromServerID().toPromise()
     .then(id => {
       if (typeof id !== 'number') {
         throw new Error("Validation Error");
@@ -53,11 +53,15 @@ export class AccountService {
     });
   }
 
-  getCurrentID(): Observable<number> {
+  retrieveFromServerID(): Observable<number> {
     const params = new HttpParams().set("user", this.currentUser!);
     return this.http.get<number>(`${this.apiUrl}/users/id`, {params: params});
   }
 
+  getCurrentID(): number {
+    return this.currentID;
+  }
+  
   accountObserver(): Observable<any> {
     return this.subject.asObservable();
   }

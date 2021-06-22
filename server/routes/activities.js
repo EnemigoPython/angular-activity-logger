@@ -2,4 +2,36 @@ const express = require('express');
 const { db } = require('../db');
 const router = express.Router();
 
+function getActivities(id) {
+    const result = new Promise((resolve, reject) => {
+        db.query(
+            `SELECT activityname AS name, date, state, notes
+            FROM activities
+            JOIN activitydata ON
+            activities.activityID = activitydata.activityID
+            AND activities.userID = ?`,
+            [
+                id
+            ], (err, res) => {
+                if (err) {
+                    console.error(err);
+                    reject(err.code);
+                } else {
+                    resolve(res);
+                }
+            }
+        )
+    });
+    return result;
+}
+
+router.get("/", async (req, res) => {
+    try {
+        res.json(await getActivities(req.query.id));
+    } catch (err) {
+        console.error(err);
+        res.json({ error: err });
+    }
+});
+
 module.exports = router;

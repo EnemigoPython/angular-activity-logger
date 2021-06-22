@@ -21,8 +21,8 @@ export class ActivitiesService {
     private http: HttpClient
   ) { }
 
-  getUserActivities(user: string) {
-    const params = new HttpParams().set("user", user);
-    return this.http.get<ActivityRow[]>(`${this.apiUrl}/users/id`, {params: params});
+  getUserActivities(id: number) {
+    const params = new HttpParams().set("id", id);
+    return this.http.get<ActivityRow[]>(`${this.apiUrl}/activities`, {params: params});
   }
 }
