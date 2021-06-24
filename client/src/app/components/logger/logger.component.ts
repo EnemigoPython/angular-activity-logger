@@ -6,34 +6,14 @@ import { ActivitiesService } from 'src/app/services/activities.service';
 
 import { ActivityRow } from '../../types/ActivityRow';
 
-const date = new Date();
-
-const ELEMENT_DATA: ActivityRow[] = [
-  {date: date.toLocaleDateString("en-GB", 
-  {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }),
-  test: "unreported"},
-  {date: date.toLocaleDateString("en-GB", 
-  {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }),
-  test: "unreported",
-  x: "unreported"}
-];
-
 @Component({
   selector: 'app-logger',
   templateUrl: './logger.component.html',
   styleUrls: ['./logger.component.css']
 })
 export class LoggerComponent implements AfterViewInit {
-  displayedColumns: string[] = ['date', 'test', 'x'];
-  displayedData = [...ELEMENT_DATA];
+  displayedColumns: string[] = ['date'];
+  displayedData: ActivityRow[] = [];
   dataSource = new MatTableDataSource(this.displayedData);
   currentID?: number;
   @Input() activityName: string = '';
@@ -50,15 +30,20 @@ export class LoggerComponent implements AfterViewInit {
         if (id > 0) {
           this.activitiesService.getUserActivities(id)
           .subscribe(
-            data => console.log(data)
+            data => {
+              console.log(data);
+              // console.log(this.activitiesService.buildTableFromIndices(data));
+              this.dataSource.data = this.activitiesService.buildTableFromIndices(data);
+              this.displayedColumns = Object.keys(this.dataSource.data[0]);
+            }
           );
         }
       }
     );
   }
 
-  test(row: string[]) {
-    console.log(row);
+  test(row: number, col: number, item: string) {
+    console.log(row, col, item);
   }
 
   addActivity() {

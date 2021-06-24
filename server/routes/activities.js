@@ -5,11 +5,12 @@ const router = express.Router();
 function getActivities(id) {
     const result = new Promise((resolve, reject) => {
         db.query(
-            `SELECT activityname AS name, date, state, notes
+            `SELECT activityname AS name, date, dataID AS id, state
             FROM activities
             JOIN activitydata ON
             activities.activityID = activitydata.activityID
-            AND activities.userID = ?`,
+            AND activities.userID = ?
+            ORDER BY date`,
             [
                 id
             ], (err, res) => {
