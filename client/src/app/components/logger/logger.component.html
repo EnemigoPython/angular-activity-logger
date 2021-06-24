@@ -7,7 +7,7 @@
           <mat-icon>close</mat-icon>
         </button> 
       </th>
-      <td mat-cell *matCellDef="let element; let j = index" (click)="i > 0 ? test(i - 1, j, element[column]) : ''"> {{element[column]}} </td>
+      <td mat-cell *matCellDef="let element; let j = index" (click)="i > 0 ? test(j, column, element[column]) : ''"> {{element[column]}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -42,9 +42,9 @@ export class LoggerComponent implements AfterViewInit {
     );
   }
 
-  test(i: number, j: number, item: string) {
-    console.log(i, j, item);
-    console.log(this.activitiesService.retrieveFromIndexID(`${i},${j}`));
+  test(j: number, col: string, item: string) {
+    console.log(j, col, item);
+    console.log(this.activitiesService.retrieveFromIndexID(`${col}[${j}]`));
   }
 
   addActivity() {

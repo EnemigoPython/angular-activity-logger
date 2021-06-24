@@ -26,9 +26,25 @@ function getActivities(id) {
     return result;
 }
 
+function createActivity(title) {
+    const result = new Promise((resolve, reject) => {
+        resolve();
+    });
+    return result;
+}
+
 router.get("/", async (req, res) => {
     try {
         res.json(await getActivities(req.query.id));
+    } catch (err) {
+        console.error(err);
+        res.json({ error: err });
+    }
+});
+
+router.post("/", async (req, res) => {
+    try {
+        res.json(await createActivity(req.body));
     } catch (err) {
         console.error(err);
         res.json({ error: err });

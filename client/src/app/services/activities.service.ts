@@ -48,8 +48,9 @@ export class ActivitiesService {
         default:
           table[table.length - 1][dataIndex.name] = 'in progress';
       }
-      this.mapOfIDs[`${Object.keys(table[table.length - 1]).length - 2},${table.length - 1}`] = dataIndex.id;
+      this.mapOfIDs[`${dataIndex.name}[${table.length - 1}]`] = dataIndex.id;
     });
+    console.log(this.mapOfIDs);
     return table;
   }
 
