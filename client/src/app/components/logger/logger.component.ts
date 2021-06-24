@@ -27,12 +27,12 @@ export class LoggerComponent implements AfterViewInit {
     this.accountService.observerID()
     .subscribe(
       id => {
-        if (id > 0) {
+        if (id > 0 && id !== this.currentID) {
+          this.currentID = id;
           this.activitiesService.getUserActivities(id)
           .subscribe(
             data => {
               console.log(data);
-              // console.log(this.activitiesService.buildTableFromIndices(data));
               this.dataSource.data = this.activitiesService.buildTableFromIndices(data);
               this.displayedColumns = Object.keys(this.dataSource.data[0]);
             }
@@ -42,8 +42,9 @@ export class LoggerComponent implements AfterViewInit {
     );
   }
 
-  test(row: number, col: number, item: string) {
-    console.log(row, col, item);
+  test(i: number, j: number, item: string) {
+    console.log(i, j, item);
+    console.log(this.activitiesService.retrieveFromIndexID(`${i},${j}`));
   }
 
   addActivity() {
