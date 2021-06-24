@@ -5,7 +5,7 @@ const router = express.Router();
 function getActivities(id) {
     const result = new Promise((resolve, reject) => {
         db.query(
-            `SELECT activityname AS name, date, dataID AS id, state
+            `SELECT activityname AS name, DATE_FORMAT(date, '%d-%m-%Y') AS date, dataID AS id, state
             FROM activities
             JOIN activitydata ON
             activities.activityID = activitydata.activityID
