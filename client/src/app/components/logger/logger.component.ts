@@ -15,7 +15,15 @@ const ELEMENT_DATA: ActivityRow[] = [
     month: "2-digit",
     day: "2-digit",
   }),
-  test: "unreported"}
+  test: "unreported"},
+  {date: date.toLocaleDateString("en-GB", 
+  {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }),
+  test: "unreported",
+  x: "unreported"}
 ];
 
 @Component({
@@ -24,7 +32,7 @@ const ELEMENT_DATA: ActivityRow[] = [
   styleUrls: ['./logger.component.css']
 })
 export class LoggerComponent implements AfterViewInit {
-  displayedColumns: string[] = ['date', 'test'];
+  displayedColumns: string[] = ['date', 'test', 'x'];
   displayedData = [...ELEMENT_DATA];
   dataSource = new MatTableDataSource(this.displayedData);
   currentID?: number;

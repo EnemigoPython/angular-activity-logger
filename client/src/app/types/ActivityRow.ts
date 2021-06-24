@@ -1,5 +1,6 @@
 import { Activity } from './Activity';
 
 export interface ActivityRow {
-    [key: string]: Activity["name"]
+    date: string
+    [key: string]: string
 }
