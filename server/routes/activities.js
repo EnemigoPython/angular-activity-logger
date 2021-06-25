@@ -27,6 +27,7 @@ function getActivities(id) {
 }
 
 function createActivity(title) {
+    // https://stackoverflow.com/questions/12502032/insert-multiple-rows-with-one-query-mysql
     const result = new Promise((resolve, reject) => {
         resolve();
     });

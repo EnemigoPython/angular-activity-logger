@@ -56,7 +56,7 @@ export class MainMenuComponent implements OnInit {
   formIsValid(): boolean {
     return this.currentForm === 'Log in' ?
       ![this.username.valid, this.password.valid].includes(false) :
-      ![this.username.valid, this.password.valid, this.confirmPass.valid].includes(false)
+      ![this.username.valid, this.password.valid, this.confirmPass.valid].includes(false);
   }
 
   onSubmit(): void {

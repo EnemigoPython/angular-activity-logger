@@ -31,7 +31,7 @@ export class ActivitiesService {
   buildTableFromIndices(dataIndices: Activity[]): ActivityRow[] {
     const table: ActivityRow[] = [];
     this.mapOfIDs = {};
-    dataIndices.forEach((dataIndex, i) => {
+    dataIndices.forEach(dataIndex => {
       if (!table.map(row => row.date).includes(dataIndex.date)) {
         table.push({ date: dataIndex.date });
       }
@@ -50,7 +50,6 @@ export class ActivitiesService {
       }
       this.mapOfIDs[`${dataIndex.name}[${table.length - 1}]`] = dataIndex.id;
     });
-    console.log(this.mapOfIDs);
     return table;
   }
 
