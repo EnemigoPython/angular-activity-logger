@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 
 import { Activity } from '../types/Activity';
 import { ActivityRow } from '../types/ActivityRow';
@@ -23,7 +24,7 @@ export class ActivitiesService {
     private http: HttpClient
   ) { }
 
-  getUserActivities(id: number) {
+  getUserActivities(id: number): Observable<Activity[]> {
     const params = new HttpParams().set("id", id);
     return this.http.get<Activity[]>(`${this.apiUrl}/activities`, {params: params});
   }
@@ -55,5 +56,10 @@ export class ActivitiesService {
 
   retrieveFromIndexID(index: string): number {
     return this.mapOfIDs[index];
+  }
+
+  postNewActivity(name: string, numberOfDates: number, id: number) {
+    this.http.post<Activity[]>(`${this.apiUrl}/activities`, {name, numberOfDates, id})
+    .subscribe();
   }
 }

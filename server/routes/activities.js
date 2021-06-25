@@ -2,6 +2,10 @@ const express = require('express');
 const { db } = require('../db');
 const router = express.Router();
 
+function getCurrentDataUK() {
+    
+}
+
 function getActivities(id) {
     const result = new Promise((resolve, reject) => {
         db.query(
@@ -26,12 +30,30 @@ function getActivities(id) {
     return result;
 }
 
-function createActivity(title) {
+function createActivity(data) {
     // https://stackoverflow.com/questions/12502032/insert-multiple-rows-with-one-query-mysql
     const result = new Promise((resolve, reject) => {
-        resolve();
+        db.query(
+            `INSERT INTO activities
+            (userID, activityname)
+            VALUES (?, ?)`,
+            [
+                data.id, data.name
+            ], (err, res) => {
+                if (err) {
+                    console.error(err);
+                    reject(err.code);
+                } else {
+                    resolve(res.insertId);
+                }
+            }
+        )
     });
     return result;
+}
+
+function createActivityDataIndex() {
+
 }
 
 router.get("/", async (req, res) => {
@@ -45,7 +67,9 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-        res.json(await createActivity(req.body));
+        console.log(req.body);
+        const activityID = await createActivity(req.body);
+        res.json(await createActivityDataIndex(req.body));
     } catch (err) {
         console.error(err);
         res.json({ error: err });

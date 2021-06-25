@@ -53,6 +53,10 @@ export class LoggerComponent implements AfterViewInit {
         return {...row, [this.activityName]: 'unreported'};
       });
       this.displayedColumns.push(this.activityName);
+      this.activitiesService.postNewActivity(
+        this.activityName, 
+        this.dataSource.data.length,
+        this.accountService.currentID);
     }
     this.activityName = '';
   }
