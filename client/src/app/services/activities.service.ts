@@ -59,9 +59,14 @@ export class ActivitiesService {
   }
 
   postNewActivity(name: string, numberOfDates: number, id: number) {
-    this.http.post<Activity[]>(`${this.apiUrl}/activities`, {name, numberOfDates, id})
+    this.http.post<number[]>(`${this.apiUrl}/activities`, {name, numberOfDates, id})
     .subscribe(
-      _in => console.log(_in)
+      returnIDs => {
+        returnIDs.forEach((ID, i) => {
+          const index = i + 1;
+          this.mapOfIDs[`${name}[${numberOfDates - index}]`] = ID
+        });
+      }
     );
   }
 }
