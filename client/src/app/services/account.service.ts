@@ -20,7 +20,7 @@ const httpOptions = {
 export class AccountService {
   private apiUrl = environment.API_URL;
   private currentUser: string | null = null;
-  public currentID: number = 0;
+  private currentID: number = 0;
   private accountSubject = new Subject<string | null>();
   private subjectID = new BehaviorSubject<number>(0);
   private lazySubjectID = new Subject<number>();

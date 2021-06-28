@@ -72,14 +72,16 @@ async function createActivityDataIndices(id, dates) {
     return dataIDs;
 }
 
-function getActivityID(name) {
+function getActivityID(data) {
     const result = new Promise((resolve, reject) => {
         db.query(
             `SELECT activityID
             FROM activities 
-            WHERE activityname = ?`,
+            WHERE activityname = ?
+            AND userID = ?`,
             [
-                name
+                data.name,
+                data.id
             ], (err, res) => {
                 if (err) {
                     console.error(err);
@@ -93,8 +95,8 @@ function getActivityID(name) {
     return result;
 }
 
-async function deleteActivity(name) {
-    const activityID = await getActivityID(name);
+async function deleteActivity(data) {
+    const activityID = await getActivityID(data);
     const result = new Promise((resolve, reject) => {
         db.query(
             `DELETE FROM activitydata
@@ -114,9 +116,9 @@ async function deleteActivity(name) {
         new Promise((resolve, reject) => {
             db.query(
                 `DELETE FROM activities
-                WHERE activityname = ?`,
+                WHERE activityID = ?`,
                 [
-                    name
+                    activityID
                 ], (err, res) => {
                     if (err) {
                         console.error(err);
@@ -152,7 +154,7 @@ router.post("/", async (req, res) => {
 });
 
 router.delete("/", async (req, res) => {
-    res.json(await deleteActivity(req.body.name));
+    res.json(await deleteActivity(req.body));
 })
 
 module.exports = router;
