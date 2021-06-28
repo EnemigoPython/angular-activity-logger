@@ -36,6 +36,13 @@ export class LoggerComponent implements AfterViewInit {
               if (data.length > 0) {
                 this.dataSource.data = this.activitiesService.buildTableFromIndices(data);
                 this.displayedColumns = Object.keys(this.dataSource.data[0]);
+              } else {
+                const currentDate = new Date().toLocaleString('en-GB', {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                });
+                this.dataSource.data = [{ date: currentDate }];
               }
             }
           );
