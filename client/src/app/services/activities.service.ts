@@ -70,12 +70,12 @@ export class ActivitiesService {
     );
   }
 
-  deleteActivity(name: string, id: number) {
+  deleteActivity(name: string, userID: number) {
     const options = {
       headers: httpOptions.headers,
       body: {
         name,
-        id
+        id: userID
       }
     };
     this.http.delete(`${this.apiUrl}/activities`, options)
