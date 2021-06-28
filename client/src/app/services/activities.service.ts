@@ -71,7 +71,13 @@ export class ActivitiesService {
   }
 
   deleteActivity(name: string) {
-    const params = new HttpParams().set("activity", name);
-    this.http.delete(`${this.apiUrl}/activities`, {params: params});
+    const options = {
+      headers: httpOptions.headers,
+      body: {
+        name
+      },
+    };
+    this.http.delete(`${this.apiUrl}/activities`, options)
+    .subscribe();
   }
 }

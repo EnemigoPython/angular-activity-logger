@@ -63,6 +63,7 @@ export class LoggerComponent implements AfterViewInit {
   }
 
   removeActivity(activity: string) {
+    this.activitiesService.deleteActivity(activity);
     this.displayedColumns = this.displayedColumns.filter(col => col !== activity);
     this.dataSource.data = this.dataSource.data.map(row => {
       delete row[activity];

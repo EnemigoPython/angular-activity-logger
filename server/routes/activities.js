@@ -2,10 +2,6 @@ const express = require('express');
 const { db } = require('../db');
 const router = express.Router();
 
-function getCurrentDataUK() {
-
-}
-
 function getActivities(id) {
     const result = new Promise((resolve, reject) => {
         db.query(
@@ -76,6 +72,65 @@ async function createActivityDataIndices(id, dates) {
     return dataIDs;
 }
 
+function getActivityID(name) {
+    const result = new Promise((resolve, reject) => {
+        db.query(
+            `SELECT activityID
+            FROM activities 
+            WHERE activityname = ?`,
+            [
+                name
+            ], (err, res) => {
+                if (err) {
+                    console.error(err);
+                    reject(err.code);
+                } else {
+                    resolve(res[0].activityID);
+                }
+            }
+        )
+    });
+    return result;
+}
+
+async function deleteActivity(name) {
+    const activityID = await getActivityID(name);
+    const result = new Promise((resolve, reject) => {
+        db.query(
+            `DELETE FROM activitydata
+            WHERE activityID = ?`,
+            [
+                activityID
+            ], (err, res) => {
+                if (err) {
+                    console.error(err);
+                    reject(err.code);
+                } else {
+                    resolve(res);
+                }
+            }
+        )
+    }).then(
+        new Promise((resolve, reject) => {
+            db.query(
+                `DELETE FROM activities
+                WHERE activityname = ?`,
+                [
+                    name
+                ], (err, res) => {
+                    if (err) {
+                        console.error(err);
+                        reject(err.code);
+                    } else {
+                        resolve(res);
+                    }
+                }
+            )
+        })
+    );
+    return result;
+}
+
 router.get("/", async (req, res) => {
     try {
         res.json(await getActivities(req.query.id));
@@ -95,5 +150,9 @@ router.post("/", async (req, res) => {
         res.json({ error: err });
     }
 });
+
+router.delete("/", async (req, res) => {
+    res.json(await deleteActivity(req.body.name));
+})
 
 module.exports = router;
