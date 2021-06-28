@@ -99,7 +99,7 @@ export class ActivitiesService {
     return diffDays;
   }
 
-  updateRecentDates() {
-    
+  updateRecentDates(dates: number) {
+    console.log(dates);
   }
 }
