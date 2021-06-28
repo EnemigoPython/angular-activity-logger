@@ -93,5 +93,9 @@ export class ActivitiesService {
     const diffTime = Math.abs(utcCurrent.getTime() - stringToDate.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
     console.log(diffDays, diffTime, utcCurrent.getTime(), stringToDate.getTime());
+    if (diffDays > 0) {
+      console.log(true);
+      // do things
+    }
   }
 }
