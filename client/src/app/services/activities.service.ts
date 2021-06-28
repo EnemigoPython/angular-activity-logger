@@ -82,20 +82,24 @@ export class ActivitiesService {
     .subscribe();
   }
 
-  automaticDateRollover(lastDate: string) {
+  countAbsentDays(lastDate: string): number {
     // current date converted to UTC
     const currentDate = new Date();
-    const utcCurrent = new Date(Date.UTC(currentDate.getUTCFullYear(), currentDate.getUTCMonth(), currentDate.getUTCDate()));
-    // last date in table converted to Date & defaulted to UTC
+    const utcCurrent = new Date(Date.UTC(
+      currentDate.getUTCFullYear(), 
+      currentDate.getUTCMonth(), 
+      currentDate.getUTCDate()
+    ));
+    // last date string in table converted to Date & defaulted to UTC
     const dateSegments = lastDate.split("/");
     const stringToDate = new Date(`${dateSegments[2]}-${dateSegments[1]}-${dateSegments[0]}Z`);
 
     const diffTime = Math.abs(utcCurrent.getTime() - stringToDate.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-    console.log(diffDays, diffTime, utcCurrent.getTime(), stringToDate.getTime());
-    if (diffDays > 0) {
-      console.log(true);
-      // do things
-    }
+    return diffDays;
+  }
+
+  updateRecentDates() {
+    
   }
 }
