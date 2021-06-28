@@ -59,7 +59,7 @@ export class ActivitiesService {
   }
 
   postNewActivity(name: string, numberOfDates: number, id: number) {
-    this.http.post<number[]>(`${this.apiUrl}/activities`, {name, numberOfDates, id})
+    this.http.post<number[]>(`${this.apiUrl}/activities`, {name, numberOfDates, id}, httpOptions)
     .subscribe(
       returnIDs => {
         returnIDs.forEach((ID, i) => {
@@ -68,5 +68,10 @@ export class ActivitiesService {
         });
       }
     );
+  }
+
+  deleteActivity(name: string) {
+    const params = new HttpParams().set("activity", name);
+    this.http.delete(`${this.apiUrl}/activities`, {params: params});
   }
 }
