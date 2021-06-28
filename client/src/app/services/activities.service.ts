@@ -60,6 +60,8 @@ export class ActivitiesService {
 
   postNewActivity(name: string, numberOfDates: number, id: number) {
     this.http.post<Activity[]>(`${this.apiUrl}/activities`, {name, numberOfDates, id})
-    .subscribe();
+    .subscribe(
+      _in => console.log(_in)
+    );
   }
 }

@@ -56,7 +56,8 @@ export class LoggerComponent implements AfterViewInit {
       this.activitiesService.postNewActivity(
         this.activityName, 
         this.dataSource.data.length,
-        this.accountService.currentID);
+        this.accountService.currentID
+      );
     }
     this.activityName = '';
   }

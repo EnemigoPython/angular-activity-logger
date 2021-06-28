@@ -51,7 +51,7 @@ function createActivity(data) {
     return result;
 }
 
-function createActivityDataIndices(id, dates) {
+async function createActivityDataIndices(id, dates) {
     dataIDs = [];
     for (let i = 0; i < dates; i++) {
         const newID = new Promise((resolve, reject) => {
@@ -71,7 +71,7 @@ function createActivityDataIndices(id, dates) {
                 }
             )
         });
-        dataIDs.push(newID);
+        dataIDs.push(await newID);
     }
     return dataIDs;
 }
