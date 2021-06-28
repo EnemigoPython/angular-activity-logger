@@ -81,4 +81,8 @@ export class ActivitiesService {
     this.http.delete(`${this.apiUrl}/activities`, options)
     .subscribe();
   }
+
+  automaticDateRollover(lastDate: string) {
+    console.log(lastDate);
+  }
 }

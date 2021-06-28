@@ -42,6 +42,7 @@ export class LoggerComponent implements AfterViewInit {
               if (data.length > 0) {
                 this.dataSource.data = this.activitiesService.buildTableFromIndices(data);
                 this.displayedColumns = Object.keys(this.dataSource.data[0]);
+                this.activitiesService.automaticDateRollover(data[data.length - 1].date)
               }
             }
           );
