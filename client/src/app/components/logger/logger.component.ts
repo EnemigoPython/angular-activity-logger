@@ -33,8 +33,10 @@ export class LoggerComponent implements AfterViewInit {
           .subscribe(
             data => {
               console.log(data);
-              this.dataSource.data = this.activitiesService.buildTableFromIndices(data);
-              this.displayedColumns = Object.keys(this.dataSource.data[0]);
+              if (data.length > 0) {
+                this.dataSource.data = this.activitiesService.buildTableFromIndices(data);
+                this.displayedColumns = Object.keys(this.dataSource.data[0]);
+              }
             }
           );
         }
