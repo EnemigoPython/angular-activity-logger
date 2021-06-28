@@ -76,13 +76,20 @@ export class ActivitiesService {
       body: {
         name,
         id
-      },
+      }
     };
     this.http.delete(`${this.apiUrl}/activities`, options)
     .subscribe();
   }
 
   automaticDateRollover(lastDate: string) {
-    console.log(lastDate);
+    const currentDate = new Date();
+    const utcCurrent = new Date(Date.UTC(currentDate.getUTCFullYear(), currentDate.getUTCMonth(), currentDate.getUTCDate()));
+    const dateSegments = lastDate.split("/");
+    const stringToDate = new Date(`${dateSegments[2]}-${dateSegments[1]}-${dateSegments[0]}Z`);
+    
+    const diffTime = Math.abs(utcCurrent.getTime() - stringToDate.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+    console.log(diffDays, diffTime, utcCurrent.getTime(), stringToDate.getTime());
   }
 }
