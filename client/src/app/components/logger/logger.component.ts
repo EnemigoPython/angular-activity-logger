@@ -6,7 +6,8 @@ import { ActivitiesService } from 'src/app/services/activities.service';
 
 import { ActivityRow } from '../../types/ActivityRow';
 
-const currentDate = new Date().toLocaleString('en-GB', {
+const currentDate = new Date()
+.toLocaleString('en-GB', {
   year: "numeric",
   month: "2-digit",
   day: "2-digit",

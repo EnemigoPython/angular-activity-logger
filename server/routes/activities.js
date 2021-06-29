@@ -133,6 +133,17 @@ async function deleteActivity(data) {
     return result;
 }
 
+function getDateRemovedFromCurrent(days) {
+    const dateRef = new Date();
+    dateRef.setDate(dateRef.getDate() - days);
+    return dateRef
+    .toLocaleString('en-GB', {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+    });
+}
+
 router.get("/", async (req, res) => {
     try {
         res.json(await getActivities(req.query.id));
