@@ -133,6 +133,31 @@ async function deleteActivity(data) {
     return result;
 }
 
+async function postUpdatedActivityIndices(id, dates) {
+    const dataIDs = [];
+    for (let i = 0; i < dates; i++) {
+        const newID = new Promise((resolve, reject) => {
+            db.query(
+                `INSERT INTO activitydata
+                (activityID, date, state, notes)
+                VALUES (?, current_date() - ?, 0, NULL)`,
+                [
+                    id, i
+                ], (err, res) => {
+                    if (err) {
+                        console.error(err);
+                        reject(err.code);
+                    } else {
+                        resolve(res.insertId);
+                    }
+                }
+            )
+        });
+        dataIDs.push(await newID);
+    }
+    return dataIDs;
+ }
+
 router.get("/", async (req, res) => {
     try {
         res.json(await getActivities(req.query.id));
@@ -154,7 +179,29 @@ router.post("/", async (req, res) => {
 });
 
 router.delete("/", async (req, res) => {
-    res.json(await deleteActivity(req.body));
-})
+    try {
+        res.json(await deleteActivity(req.body));
+    } catch (err) {
+        console.error(err);
+        res.json({ error: err });
+    }
+});
+
+router.post("/dates", async (req, res) => {
+    try {
+        const newDataIDs = [];
+        const userID = req.body.id;
+        const activityData = await getActivities(userID);
+        const activityNames = activityData.map(activity => activity.name);
+        for (const name of activityNames) {
+            const activityID = await getActivityID({ name, id: userID });
+            console.log(activityID);
+            newDataIDs.push(await postUpdatedActivityIndices(activityID, req.body.dates));
+        }
+    } catch (err) {
+        console.error(err);
+        res.json({ error: err });
+    }
+});
 
 module.exports = router;

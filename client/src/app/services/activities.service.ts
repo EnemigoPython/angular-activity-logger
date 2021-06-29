@@ -99,7 +99,8 @@ export class ActivitiesService {
     return diffDays;
   }
 
-  updateRecentDates(dates: number) {
+  updateRecentDates(dates: number, userID: number) {
     console.log(dates);
+    return this.http.post<number[]>(`${this.apiUrl}/activities/dates`, {dates, id: userID}, httpOptions);
   }
 }
