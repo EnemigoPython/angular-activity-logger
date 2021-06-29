@@ -45,7 +45,7 @@ export class LoggerComponent implements AfterViewInit {
                 const absentDaysCount = this.activitiesService.countAbsentDays(data[data.length - 1].date);
                 if (absentDaysCount > 0) {
                   this.activitiesService.updateRecentDates(absentDaysCount, id)
-                  .subscribe();
+                  .subscribe(res => console.log(res));
                 }
               }
             }

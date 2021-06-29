@@ -133,31 +133,6 @@ async function deleteActivity(data) {
     return result;
 }
 
-async function postUpdatedActivityIndices(id, dates) {
-    const dataIDs = [];
-    for (let i = 0; i < dates; i++) {
-        const newID = new Promise((resolve, reject) => {
-            db.query(
-                `INSERT INTO activitydata
-                (activityID, date, state, notes)
-                VALUES (?, current_date() - ?, 0, NULL)`,
-                [
-                    id, i
-                ], (err, res) => {
-                    if (err) {
-                        console.error(err);
-                        reject(err.code);
-                    } else {
-                        resolve(res.insertId);
-                    }
-                }
-            )
-        });
-        dataIDs.push(await newID);
-    }
-    return dataIDs;
- }
-
 router.get("/", async (req, res) => {
     try {
         res.json(await getActivities(req.query.id));
@@ -189,15 +164,20 @@ router.delete("/", async (req, res) => {
 
 router.post("/dates", async (req, res) => {
     try {
-        const newDataIDs = [];
+        const dataIDs = [];
         const userID = req.body.id;
         const activityData = await getActivities(userID);
         const activityNames = activityData.map(activity => activity.name);
         for (const name of activityNames) {
             const activityID = await getActivityID({ name, id: userID });
-            console.log(activityID);
-            newDataIDs.push(await postUpdatedActivityIndices(activityID, req.body.dates));
+            newIDs = await createActivityDataIndices(activityID, req.body.dates);
+            // here instead of constructing an array I should construct an Activity object
+            // for the front end to process in the same way as the get request, and the table
+            // can be constructed in one render cycle
+            dataIDs.push(...newIDs);
         }
+        console.log(dataIDs);
+        res.json(dataIDs);
     } catch (err) {
         console.error(err);
         res.json({ error: err });
