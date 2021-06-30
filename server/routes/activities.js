@@ -175,20 +175,24 @@ router.delete("/", async (req, res) => {
 
 router.post("/dates", async (req, res) => {
     try {
-        const dataIDs = [];
+        const dataIndices = [];
         const userID = req.body.id;
         const activityData = await getActivities(userID);
         const activityNames = activityData.map(activity => activity.name);
         for (const name of activityNames) {
             const activityID = await getActivityID({ name, id: userID });
-            newIDs = await createActivityDataIndices(activityID, req.body.dates);
-            // here instead of constructing an array I should construct an Activity object
-            // for the front end to process in the same way as the get request, and the table
-            // can be constructed in one render cycle
-            dataIDs.push(...newIDs);
+            const dataIDs = await createActivityDataIndices(activityID, req.body.dates);
+            dataIDs.forEach((id, i) => {
+                dataIndices.push({
+                    name,
+                    date: getDateRemovedFromCurrent(i),
+                    id,
+                    state: 0
+                });
+            });
         }
-        console.log(dataIDs);
-        res.json(dataIDs);
+        console.log(dataIndices);
+        res.json(dataIndices);
     } catch (err) {
         console.error(err);
         res.json({ error: err });

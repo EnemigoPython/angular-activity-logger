@@ -41,13 +41,16 @@ export class LoggerComponent implements AfterViewInit {
             data => {
               console.log(data);
               if (data.length > 0) {
-                this.dataSource.data = this.activitiesService.buildTableFromIndices(data);
-                this.displayedColumns = Object.keys(this.dataSource.data[0]);
                 const absentDaysCount = this.activitiesService.countAbsentDays(data[data.length - 1].date);
                 if (absentDaysCount > 0) {
                   this.activitiesService.updateRecentDates(absentDaysCount, id)
-                  .subscribe(res => console.log(res));
+                  .subscribe(newData => {
+                    this.dataSource.data = this.activitiesService.buildTableFromIndices(data.concat(newData));
+                  });
+                } else {
+                  this.dataSource.data = this.activitiesService.buildTableFromIndices(data);
                 }
+                this.displayedColumns = Object.keys(this.dataSource.data[0]);
               }
             }
           );

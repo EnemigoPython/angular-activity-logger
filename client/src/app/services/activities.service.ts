@@ -101,6 +101,6 @@ export class ActivitiesService {
 
   updateRecentDates(dates: number, userID: number) {
     console.log(dates);
-    return this.http.post<number[]>(`${this.apiUrl}/activities/dates`, {dates, id: userID}, httpOptions);
+    return this.http.post<Activity[]>(`${this.apiUrl}/activities/dates`, {dates, id: userID}, httpOptions);
   }
 }
