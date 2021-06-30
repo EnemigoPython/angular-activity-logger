@@ -51,6 +51,7 @@ export class ActivitiesService {
       }
       this.mapOfIDs[`${dataIndex.name}[${table.length - 1}]`] = dataIndex.id;
     });
+    console.log(table);
     return table;
   }
 
@@ -100,7 +101,6 @@ export class ActivitiesService {
   }
 
   updateRecentDates(dates: number, userID: number) {
-    console.log(dates);
     return this.http.post<Activity[]>(`${this.apiUrl}/activities/dates`, {dates, id: userID}, httpOptions);
   }
 }

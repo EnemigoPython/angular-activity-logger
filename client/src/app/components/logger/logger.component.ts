@@ -46,11 +46,12 @@ export class LoggerComponent implements AfterViewInit {
                   this.activitiesService.updateRecentDates(absentDaysCount, id)
                   .subscribe(newData => {
                     this.dataSource.data = this.activitiesService.buildTableFromIndices(data.concat(newData));
+                    this.displayedColumns = Object.keys(this.dataSource.data[0]);
                   });
                 } else {
                   this.dataSource.data = this.activitiesService.buildTableFromIndices(data);
+                  this.displayedColumns = Object.keys(this.dataSource.data[0]);
                 }
-                this.displayedColumns = Object.keys(this.dataSource.data[0]);
               }
             }
           );
