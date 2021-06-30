@@ -180,7 +180,6 @@ router.post("/dates", async (req, res) => {
         const activityData = await getActivities(userID);
         const activityNames = new Set(activityData.map(activity => activity.name));
         for (const name of activityNames) {
-            console.log(activityNames);
             const activityID = await getActivityID({ name, id: userID });
             const dataIDs = await createActivityDataIndices(activityID, req.body.dates);
             dataIDs.forEach((id, i) => {
@@ -192,7 +191,6 @@ router.post("/dates", async (req, res) => {
                 });
             });
         }
-        console.log(dataIndices);
         res.json(dataIndices);
     } catch (err) {
         console.error(err);
