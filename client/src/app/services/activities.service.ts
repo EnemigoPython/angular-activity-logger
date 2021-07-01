@@ -52,7 +52,6 @@ export class ActivitiesService {
       }
       this.mapOfIDs[`${dataIndex.name}[${table.length - 1}]`] = dataIndex.id;
     });
-    console.log(table);
     return table;
   }
 
@@ -105,8 +104,8 @@ export class ActivitiesService {
     return this.http.post<Activity[]>(`${this.apiUrl}/activities/dates`, {dates, id: userID}, httpOptions);
   }
 
-  getActivity(id: number) {
+  getActivity(id: number): Observable<ActivityDialog> {
     const params = new HttpParams().set("id", id);
-    return this.http.get<Activity[]>(`${this.apiUrl}/id`, {params: params});
+    return this.http.get<ActivityDialog>(`${this.apiUrl}/activities/id`, {params: params});
   }
 }

@@ -147,7 +147,7 @@ function getDateRemovedFromCurrent(days) {
 function getActivity(id) {
     const result = new Promise((resolve, reject) => {
         db.query(
-            `SELECT (state, notes) 
+            `SELECT state, notes
             FROM activitydata
             WHERE dataID = ?;`,
             [
