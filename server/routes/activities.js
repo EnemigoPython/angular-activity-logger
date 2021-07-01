@@ -54,7 +54,7 @@ async function createActivityDataIndices(id, dates) {
             db.query(
                 `INSERT INTO activitydata
                 (activityID, date, state, notes)
-                VALUES (?, current_date() - ?, 0, NULL)`,
+                VALUES (?, subdate(current_date(), ?), 0, NULL)`,
                 [
                     id, i
                 ], (err, res) => {
