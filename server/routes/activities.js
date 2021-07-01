@@ -5,7 +5,7 @@ const router = express.Router();
 function getActivities(id) {
     const result = new Promise((resolve, reject) => {
         db.query(
-            `SELECT activityname AS name, DATE_FORMAT(date, '%d/%m/%Y') AS date, dataID AS id, state
+            `SELECT activityname AS name, DATE_FORMAT(date, '%d/%m/%Y') AS activityDate, dataID AS id, state
             FROM activities
             JOIN activitydata ON
             activities.activityID = activitydata.activityID
@@ -146,6 +146,8 @@ function getDateRemovedFromCurrent(days) {
 
 router.get("/", async (req, res) => {
     try {
+        const x = await getActivities(req.query.id);
+        console.log(x);
         res.json(await getActivities(req.query.id));
     } catch (err) {
         console.error(err);

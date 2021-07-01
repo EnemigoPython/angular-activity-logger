@@ -1,6 +1,6 @@
 export interface Activity {
     name: string,
-    date: string,
+    activityDate: string,
     id: number
     state: number,
 }

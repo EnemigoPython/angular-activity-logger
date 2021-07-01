@@ -33,8 +33,8 @@ export class ActivitiesService {
     const table: ActivityRow[] = [];
     this.mapOfIDs = {};
     dataIndices.forEach(dataIndex => {
-      if (!table.map(row => row.date).includes(dataIndex.date)) {
-        table.push({ date: dataIndex.date });
+      if (!table.map(row => row.date).includes(dataIndex.activityDate)) {
+        table.push({ date: dataIndex.activityDate });
       }
       switch(dataIndex.state) {
         case -1:
