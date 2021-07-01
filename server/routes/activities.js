@@ -144,6 +144,27 @@ function getDateRemovedFromCurrent(days) {
     });
 }
 
+function getActivity(id) {
+    const result = new Promise((resolve, reject) => {
+        db.query(
+            `SELECT (state, notes) 
+            FROM activitydata
+            WHERE dataID = ?;`,
+            [
+                id
+            ], (err, res) => {
+                if (err) {
+                    console.error(err);
+                    reject(err.code);
+                } else {
+                    resolve(res);
+                }
+            }
+        )
+    });
+    return result;
+}
+
 router.get("/", async (req, res) => {
     try {
         res.json(await getActivities(req.query.id));
@@ -192,6 +213,15 @@ router.post("/dates", async (req, res) => {
             });
         }
         res.json(dataIndices);
+    } catch (err) {
+        console.error(err);
+        res.json({ error: err });
+    }
+});
+
+router.get("/id", async (req, res) => {
+    try {
+        res.json(await getActivity(req.query.id));
     } catch (err) {
         console.error(err);
         res.json({ error: err });

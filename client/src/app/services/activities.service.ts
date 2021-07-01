@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { Activity } from '../types/Activity';
 import { ActivityRow } from '../types/ActivityRow';
+import { ActivityDialog } from '../types/ActivityDialog';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -102,5 +103,10 @@ export class ActivitiesService {
 
   updateRecentDates(dates: number, userID: number) {
     return this.http.post<Activity[]>(`${this.apiUrl}/activities/dates`, {dates, id: userID}, httpOptions);
+  }
+
+  getActivity(id: number) {
+    const params = new HttpParams().set("id", id);
+    return this.http.get<Activity[]>(`${this.apiUrl}/id`, {params: params});
   }
 }

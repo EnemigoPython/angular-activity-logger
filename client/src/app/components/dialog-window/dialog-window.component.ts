@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { ActivityDetail } from 'src/app/types/ActivityDialog';
+import { ActivityDialog } from 'src/app/types/ActivityDialog';
 
 @Component({
   selector: 'app-dialog-window',
@@ -12,7 +12,7 @@ export class DialogWindowComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<DialogWindowComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ActivityDetail
+    @Inject(MAT_DIALOG_DATA) public data: ActivityDialog
   ) { }
 
   ngOnInit(): void {

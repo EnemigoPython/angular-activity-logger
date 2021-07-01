@@ -1,6 +1,5 @@
-export interface ActivityDetail {
+export interface ActivityDialog {
     name: string,
-    activityDate: string,
-    id: number
     state: number,
+    notes: string
 }
