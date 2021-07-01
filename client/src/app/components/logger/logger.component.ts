@@ -1,5 +1,6 @@
-import { Component, AfterViewInit, Input } from '@angular/core';
+import { Component, AfterViewInit, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 import { AccountService } from 'src/app/services/account.service';
 import { ActivitiesService } from 'src/app/services/activities.service';
@@ -25,12 +26,15 @@ export class LoggerComponent implements AfterViewInit {
   currentID?: number;
   @Input() activityName: string = '';
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   constructor(
     private accountService: AccountService,
     private activitiesService: ActivitiesService
   ) { }
 
   ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
     this.accountService.observerID()
     .subscribe(
       id => {

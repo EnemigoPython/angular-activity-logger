@@ -13,6 +13,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+  <mat-paginator [pageSizeOptions]="[7]"></mat-paginator>
 
   <form class="submitForm" autocomplete="off">
     <mat-form-field>
