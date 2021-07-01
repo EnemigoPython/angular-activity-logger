@@ -146,8 +146,6 @@ function getDateRemovedFromCurrent(days) {
 
 router.get("/", async (req, res) => {
     try {
-        const x = await getActivities(req.query.id);
-        console.log(x);
         res.json(await getActivities(req.query.id));
     } catch (err) {
         console.error(err);

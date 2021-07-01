@@ -27,6 +27,7 @@ export class LoggerComponent implements AfterViewInit {
   @Input() activityName: string = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  resultsPerPage: number = 3;
 
   constructor(
     private accountService: AccountService,
@@ -65,8 +66,11 @@ export class LoggerComponent implements AfterViewInit {
   }
 
   test(j: number, col: string, item: string) {
-    console.log(j, col, item);
-    console.log(this.activitiesService.retrieveFromIndexID(`${col}[${j}]`));
+    // console.log(j, col, item);
+    const itemIndex = j + (this.paginator.pageIndex * this.resultsPerPage);
+    console.log(item);
+    console.log(this.activitiesService.retrieveFromIndexID(`${col}[${itemIndex}]`));
+    // console.log(this.paginator.pageIndex);
   }
 
   addActivity() {
