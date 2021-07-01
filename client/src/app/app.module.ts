@@ -19,12 +19,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { HeaderComponent } from './components/header/header.component';
-import { MainMenuComponent } from './components/main-menu/main-menu.component';
+import { MainMenuComponent, MenuDialog } from './components/main-menu/main-menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LandingComponent } from './components/landing/landing.component';
 
 import { AppComponent } from './app.component';
 import { LoggerComponent } from './components/logger/logger.component';
+import { DialogWindowComponent } from './components/dialog-window/dialog-window.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { LoggerComponent } from './components/logger/logger.component';
     MainMenuComponent,
     FooterComponent,
     LandingComponent,
-    LoggerComponent
+    LoggerComponent,
+    DialogWindowComponent
   ],
   imports: [
     FormsModule,
@@ -54,6 +56,10 @@ import { LoggerComponent } from './components/logger/logger.component';
     MatTableModule,
     MatTooltipModule,
     MatPaginatorModule
+  ],
+  entryComponents: [
+    DialogWindowComponent,
+    MenuDialog
   ],
   providers: [],
   bootstrap: [AppComponent]

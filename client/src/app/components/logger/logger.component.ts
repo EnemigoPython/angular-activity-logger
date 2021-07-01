@@ -1,6 +1,9 @@
 import { Component, AfterViewInit, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+
+import { DialogWindowComponent } from '../dialog-window/dialog-window.component';
 
 import { AccountService } from 'src/app/services/account.service';
 import { ActivitiesService } from 'src/app/services/activities.service';
@@ -27,11 +30,12 @@ export class LoggerComponent implements AfterViewInit {
   @Input() activityName: string = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  resultsPerPage: number = 3;
+  resultsPerPage: number = 7;
 
   constructor(
     private accountService: AccountService,
-    private activitiesService: ActivitiesService
+    private activitiesService: ActivitiesService,
+    public dialog: MatDialog
   ) { }
 
   ngAfterViewInit() {
@@ -71,6 +75,9 @@ export class LoggerComponent implements AfterViewInit {
     console.log(item);
     console.log(this.activitiesService.retrieveFromIndexID(`${col}[${itemIndex}]`));
     // console.log(this.paginator.pageIndex);
+    this.dialog.open(DialogWindowComponent, {
+      data: this.activitiesService.retrieveFromIndexID(`${col}[${itemIndex}]`)
+    });
   }
 
   addActivity() {
