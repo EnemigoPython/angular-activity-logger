@@ -69,11 +69,10 @@ export class LoggerComponent implements AfterViewInit {
     );
   }
 
-  test(j: number, col: string, item: string) {
+  selectActivity(j: number, col: string, item: string) {
     // console.log(j, col, item);
     const itemIndex = j + (this.paginator.pageIndex * this.resultsPerPage);
     console.log(item);
-    console.log(this.activitiesService.retrieveFromIndexID(`${col}[${itemIndex}]`));
     // console.log(this.paginator.pageIndex);
     this.dialog.open(DialogWindowComponent, {
       data: this.activitiesService.retrieveFromIndexID(`${col}[${itemIndex}]`)

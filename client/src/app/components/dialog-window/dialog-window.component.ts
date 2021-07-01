@@ -16,6 +16,7 @@ export class DialogWindowComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.data);
   }
 
 }
