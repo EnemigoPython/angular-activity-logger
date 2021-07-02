@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Input, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
@@ -32,6 +32,9 @@ export class LoggerComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   resultsPerPage: number = 7;
 
+  @ViewChild('cardRef') cardRef!: ElementRef;
+  tooLong: boolean = false;
+
   constructor(
     private accountService: AccountService,
     private activitiesService: ActivitiesService,
@@ -41,38 +44,36 @@ export class LoggerComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.accountService.observerID()
-      .subscribe(
-        id => {
-          if (id > 0 && id !== this.currentID) {
-            this.currentID = id;
-            this.activitiesService.getUserActivities(id)
-              .subscribe(
-                data => {
-                  if (data.length > 0) {
-                    const absentDaysCount = this.activitiesService.countAbsentDays(data[data.length - 1].activityDate);
-                    if (absentDaysCount > 0) {
-                      this.activitiesService.updateRecentDates(absentDaysCount, id)
-                        .subscribe(newData => {
-                          this.dataSource.data = this.activitiesService.buildTableFromIndices(data.concat(newData));
-                          this.displayedColumns = Object.keys(this.dataSource.data[0]);
-                        });
-                    } else {
-                      this.dataSource.data = this.activitiesService.buildTableFromIndices(data);
-                      this.displayedColumns = Object.keys(this.dataSource.data[0]);
-                    }
+    .subscribe(
+      id => {
+        if (id > 0 && id !== this.currentID) {
+          this.currentID = id;
+          this.activitiesService.getUserActivities(id)
+            .subscribe(
+              data => {
+                if (data.length > 0) {
+                  const absentDaysCount = this.activitiesService.countAbsentDays(data[data.length - 1].activityDate);
+                  if (absentDaysCount > 0) {
+                    this.activitiesService.updateRecentDates(absentDaysCount, id)
+                      .subscribe(newData => {
+                        this.dataSource.data = this.activitiesService.buildTableFromIndices(data.concat(newData));
+                        this.displayedColumns = Object.keys(this.dataSource.data[0]);
+                      });
+                  } else {
+                    this.dataSource.data = this.activitiesService.buildTableFromIndices(data);
+                    this.displayedColumns = Object.keys(this.dataSource.data[0]);
                   }
                 }
-              );
-          }
+              }
+            );
         }
-      );
+      }
+    );
   }
 
   selectActivity(j: number, col: string, item: string) {
-    // console.log(j, col, item);
     const itemIndex = j + (this.paginator.pageIndex * this.resultsPerPage);
     console.log(item);
-    // console.log(this.paginator.pageIndex);
     this.dialog.open(DialogWindowComponent, {
       data: {
         name: col,
@@ -95,6 +96,7 @@ export class LoggerComponent implements AfterViewInit {
       );
     }
     this.activityName = '';
+    this.manageScrollMode();
   }
 
   removeActivity(activity: string) {
@@ -104,6 +106,13 @@ export class LoggerComponent implements AfterViewInit {
       delete row[activity];
       return row;
     });
+    this.manageScrollMode();
+  }
+
+  manageScrollMode() {
+    // very hacky
+    this.tooLong = (window.innerWidth / 100) * 90 < this.cardRef.nativeElement.offsetWidth ?
+    true : false;
   }
 
 }
