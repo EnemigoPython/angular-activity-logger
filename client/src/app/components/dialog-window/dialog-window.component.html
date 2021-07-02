@@ -1,8 +1,9 @@
-<div #container>
+<div>
     <h3>{{data.name}}</h3>
-    <mat-button-toggle-group name="activityState" aria-label="activityState">
+    <mat-button-toggle-group name="activityState" [(ngModel)]="activityState" aria-label="activityState">
         <mat-button-toggle value="Failed">Failed</mat-button-toggle>
         <mat-button-toggle value="In Progress">In Progress</mat-button-toggle>
         <mat-button-toggle value="Completed">Completed</mat-button-toggle>
     </mat-button-toggle-group>
+    <p>{{activityState}}</p>
 </div>

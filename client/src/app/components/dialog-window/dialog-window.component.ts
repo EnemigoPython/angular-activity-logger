@@ -12,6 +12,9 @@ import { ActivityDialog } from 'src/app/types/ActivityDialog';
 })
 export class DialogWindowComponent implements OnInit {
 
+  state: number = 0;
+  activityState?: string;
+
   constructor(
     private activityService: ActivitiesService,
     public dialogRef: MatDialogRef<DialogWindowComponent>,
@@ -22,7 +25,16 @@ export class DialogWindowComponent implements OnInit {
     console.log(this.data);
     this.activityService.getActivity(this.data.id)
     .subscribe(
-      res => console.log(res)
+      data => {
+        this.state = data.state;
+        console.log(data);
+        console.log(this.state);
+        this.activityState = 
+        this.state === 0 ? 'Unreported' :
+        this.state === -1 ? 'Failed' :
+        this.state > 99 ? 'Completed' :
+        'In Progress';
+      }
     );
   }
 

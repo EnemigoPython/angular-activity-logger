@@ -157,7 +157,7 @@ function getActivity(id) {
                     console.error(err);
                     reject(err.code);
                 } else {
-                    resolve(res);
+                    resolve(res[0]);
                 }
             }
         )
