@@ -1,7 +1,8 @@
-import { Component, AfterViewInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, Input, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
+import { debounceTime, first } from 'rxjs/operators';
 
 import { DialogWindowComponent } from '../dialog-window/dialog-window.component';
 
@@ -38,10 +39,12 @@ export class LoggerComponent implements AfterViewInit {
   constructor(
     private accountService: AccountService,
     private activitiesService: ActivitiesService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private zone: NgZone
   ) { }
 
   ngAfterViewInit() {
+    this.stableObserver();
     this.dataSource.paginator = this.paginator;
     this.accountService.observerID()
     .subscribe(
@@ -49,25 +52,35 @@ export class LoggerComponent implements AfterViewInit {
         if (id > 0 && id !== this.currentID) {
           this.currentID = id;
           this.activitiesService.getUserActivities(id)
-            .subscribe(
-              data => {
-                if (data.length > 0) {
-                  const absentDaysCount = this.activitiesService.countAbsentDays(data[data.length - 1].activityDate);
-                  if (absentDaysCount > 0) {
-                    this.activitiesService.updateRecentDates(absentDaysCount, id)
-                      .subscribe(newData => {
-                        this.dataSource.data = this.activitiesService.buildTableFromIndices(data.concat(newData));
-                        this.displayedColumns = Object.keys(this.dataSource.data[0]);
-                      });
-                  } else {
-                    this.dataSource.data = this.activitiesService.buildTableFromIndices(data);
-                    this.displayedColumns = Object.keys(this.dataSource.data[0]);
-                  }
+          .subscribe(
+            data => {
+              if (data.length > 0) {
+                const absentDaysCount = this.activitiesService.countAbsentDays(data[data.length - 1].activityDate);
+                if (absentDaysCount > 0) {
+                  this.activitiesService.updateRecentDates(absentDaysCount, id)
+                    .subscribe(newData => {
+                      this.dataSource.data = this.activitiesService.buildTableFromIndices(data.concat(newData));
+                      this.displayedColumns = Object.keys(this.dataSource.data[0]);
+                    });
+                } else {
+                  this.dataSource.data = this.activitiesService.buildTableFromIndices(data);
+                  this.displayedColumns = Object.keys(this.dataSource.data[0]);
                 }
               }
-            );
+            }
+          );
         }
       }
+    );
+  }
+
+  stableObserver() {
+    // one time DOM check on page load (artificial timeout approach)
+    this.zone.onStable
+    .pipe(debounceTime(300))
+    .pipe(first())
+    .subscribe(
+      () => this.manageScrollMode()
     );
   }
 
