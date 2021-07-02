@@ -19,6 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatRippleModule } from '@angular/material/core';
 
 import { HeaderComponent } from './components/header/header.component';
 import { MainMenuComponent, MenuDialog } from './components/main-menu/main-menu.component';
@@ -59,7 +60,8 @@ import { DialogWindowComponent } from './components/dialog-window/dialog-window.
     MatTooltipModule,
     MatPaginatorModule,
     MatButtonToggleModule,
-    MatSliderModule
+    MatSliderModule,
+    MatRippleModule
   ],
   entryComponents: [
     DialogWindowComponent,
