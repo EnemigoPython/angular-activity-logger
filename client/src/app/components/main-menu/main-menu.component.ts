@@ -87,7 +87,8 @@ export class MainMenuComponent implements OnInit {
                 this.serverError = "Server error.";
             }
             this.dialog.open(MenuDialog, {
-              data: this.serverError
+              data: this.serverError,
+              position: { top: "20%" }
             });
           }
         });
