@@ -23,14 +23,7 @@ mat-icon {
 }
 
 mat-card {
-  position: fixed;
   overflow-x: auto;
-    /* center the element */
-    right: 0;
-    left: 0;
-    margin-right: auto;
-    margin-left: auto;
-    /* give it dimensions */
-    width: 40%;
-    display: table;
+  margin-left: 4%;
+  margin-right: 4%;
 }

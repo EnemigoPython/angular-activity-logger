@@ -52,6 +52,7 @@ export class ActivitiesService {
       }
       this.mapOfIDs[`${dataIndex.name}[${table.length - 1}]`] = dataIndex.id;
     });
+    console.log(table);
     return table;
   }
 
