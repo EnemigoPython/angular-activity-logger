@@ -5,12 +5,12 @@
         <mat-button-toggle value="In Progress">In Progress</mat-button-toggle>
         <mat-button-toggle value="Completed">Completed</mat-button-toggle>
     </mat-button-toggle-group>
-    <div *ngIf="activityState === 'In Progress'">
-        <h4>Progress</h4>
-        <mat-slider aria-label="unit(s)"></mat-slider>
+    <div id="progressSegment" *ngIf="activityState === 'In Progress'">
+        <span>Progress </span>
+        <mat-slider min="1" max="99" thumbLabel [displayWith]="percentFormat" color="primary" aria-label="progress"></mat-slider>
     </div>
     <div mat-dialog-actions>
-        <button mat-button>Cancel</button>
+        <button mat-button (click)="onCancel()">Cancel</button>
         <button mat-button cdkFocusInitial>Save</button>
     </div>
 </div>

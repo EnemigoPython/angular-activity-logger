@@ -1,0 +1,10 @@
+#progressSegment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+span {
+    margin-right: 15px;
+}

@@ -38,4 +38,12 @@ export class DialogWindowComponent implements OnInit {
     );
   }
 
+  onCancel(): void {
+    this.dialogRef.close();
+  }
+
+  percentFormat(value: number): string {
+    return `${value}%`;
+  }
+
 }
