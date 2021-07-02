@@ -8,3 +8,8 @@
 span {
     margin-right: 15px;
 }
+
+input {
+    margin: 15px;
+    outline: black;
+}
