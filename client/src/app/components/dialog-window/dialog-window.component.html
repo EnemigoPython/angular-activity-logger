@@ -7,10 +7,10 @@
     </mat-button-toggle-group>
     <div id="progressSegment" *ngIf="activityState === 'In Progress'">
         <span>Progress </span>
-        <mat-slider min="1" max="99" thumbLabel [displayWith]="percentFormat" color="primary" aria-label="progress"></mat-slider>
+        <mat-slider min="1" max="99" [(ngModel)]="state" thumbLabel [displayWith]="percentFormat" color="primary" aria-label="progress"></mat-slider>
     </div>
     <div>
-        <input matInput maxlength="256" placeholder="Notes">
+        <textarea matInput maxlength="256" rows="4" placeholder="Notes"></textarea>
     </div>
     <div mat-dialog-actions>
         <button mat-button (click)="onCancel()">Cancel</button>

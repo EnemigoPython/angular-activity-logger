@@ -61,7 +61,7 @@ import { DialogWindowComponent } from './components/dialog-window/dialog-window.
     MatPaginatorModule,
     MatButtonToggleModule,
     MatSliderModule,
-    MatRippleModule
+    MatRippleModule,
   ],
   entryComponents: [
     DialogWindowComponent,

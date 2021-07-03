@@ -212,7 +212,6 @@ router.post("/dates", async (req, res) => {
                 });
             });
         }
-        console.log(dataIndices);
         res.json(dataIndices);
     } catch (err) {
         console.error(err);

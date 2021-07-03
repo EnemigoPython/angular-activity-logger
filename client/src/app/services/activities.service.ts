@@ -31,7 +31,6 @@ export class ActivitiesService {
   }
 
   buildTableFromIndices(dataIndices: Activity[]): ActivityRow[] {
-    console.log(dataIndices);
     const table: ActivityRow[] = [];
     this.mapOfIDs = {};
     dataIndices.forEach(dataIndex => {
