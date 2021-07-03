@@ -206,12 +206,13 @@ router.post("/dates", async (req, res) => {
             dataIDs.forEach((id, i) => {
                 dataIndices.push({
                     name,
-                    date: getDateRemovedFromCurrent(i),
+                    activityDate: getDateRemovedFromCurrent(i),
                     id,
                     state: 0
                 });
             });
         }
+        console.log(dataIndices);
         res.json(dataIndices);
     } catch (err) {
         console.error(err);
