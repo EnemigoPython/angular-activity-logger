@@ -92,7 +92,7 @@ export class LoggerComponent implements AfterViewInit {
         name: col,
         id: this.activitiesService.retrieveFromIndexID(`${col}[${itemIndex}]`)
       },
-      position: { top: "10%" }
+      position: { top: "15%" }
     });
   }
 

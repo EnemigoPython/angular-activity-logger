@@ -88,7 +88,7 @@ export class MainMenuComponent implements OnInit {
             }
             this.dialog.open(MenuDialog, {
               data: this.serverError,
-              position: { top: "10%" }
+              position: { top: "15%" }
             });
           }
         });
