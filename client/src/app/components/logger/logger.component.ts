@@ -1,8 +1,7 @@
-import { Component, AfterViewInit, Input, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, AfterViewInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { debounceTime, first } from 'rxjs/operators';
 
 import { DialogWindowComponent } from '../dialog-window/dialog-window.component';
 
@@ -33,18 +32,15 @@ export class LoggerComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   resultsPerPage: number = 7;
 
-  @ViewChild('cardRef') cardRef!: ElementRef;
-  tooLong: boolean = false;
+  @Output() checkLong = new EventEmitter();
 
   constructor(
     private accountService: AccountService,
     private activitiesService: ActivitiesService,
-    public dialog: MatDialog,
-    private zone: NgZone
+    public dialog: MatDialog
   ) { }
 
   ngAfterViewInit() {
-    this.stableObserver();
     this.dataSource.paginator = this.paginator;
     this.accountService.observerID()
     .subscribe(
@@ -71,16 +67,6 @@ export class LoggerComponent implements AfterViewInit {
           );
         }
       }
-    );
-  }
-
-  stableObserver() {
-    // one time DOM check on page load (artificial timeout approach)
-    this.zone.onStable
-    .pipe(debounceTime(300))
-    .pipe(first())
-    .subscribe(
-      () => this.manageScrollMode()
     );
   }
 
@@ -130,7 +116,7 @@ export class LoggerComponent implements AfterViewInit {
       );
     }
     this.activityName = '';
-    this.manageScrollMode();
+    this.checkLong.emit();
   }
 
   removeActivity(activity: string) {
@@ -140,13 +126,7 @@ export class LoggerComponent implements AfterViewInit {
       delete row[activity];
       return row;
     });
-    this.manageScrollMode();
-  }
-
-  manageScrollMode() {
-    // very hacky
-    this.tooLong = (window.innerWidth / 100) * 90 < this.cardRef.nativeElement.offsetWidth ?
-    true : false;
+    this.checkLong.emit();
   }
 
 }

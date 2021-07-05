@@ -20,6 +20,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatRippleModule } from '@angular/material/core';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { HeaderComponent } from './components/header/header.component';
 import { MainMenuComponent, MenuDialog } from './components/main-menu/main-menu.component';
@@ -64,6 +65,7 @@ import { AccountContentComponent } from './components/account-content/account-co
     MatButtonToggleModule,
     MatSliderModule,
     MatRippleModule,
+    MatTabsModule
   ],
   entryComponents: [
     DialogWindowComponent,

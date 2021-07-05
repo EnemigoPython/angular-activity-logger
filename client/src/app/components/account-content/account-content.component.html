@@ -1,2 +1,8 @@
-<p>account-content works!</p>
-<app-logger></app-logger>
+<mat-card class="mat-elevation-z8" [ngClass]="{'scrollMode': tooLong}">
+    <div #cardRef>
+        <mat-tab-group>
+            <mat-tab label="Logger"><app-logger (checkLong)="manageScrollMode()"></app-logger></mat-tab>
+            <mat-tab label="Account"> Content 2 </mat-tab>
+        </mat-tab-group>
+    </div>
+</mat-card>

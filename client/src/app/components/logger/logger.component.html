@@ -1,33 +1,29 @@
-<mat-card class="mat-elevation-z8" [ngClass]="{'scrollMode': tooLong}">
-  <div #cardRef>
-    <table mat-table [dataSource]="dataSource">
+<table mat-table [dataSource]="dataSource">
 
-      <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns; let i=index">
-        <th mat-header-cell *matHeaderCellDef> {{column}}
-          <button *ngIf="i > 0" (click)="removeActivity(column)" mat-icon-button aria-label="delete">
-            <mat-icon>close</mat-icon>
-          </button> 
-        </th>
-        <td mat-cell 
-        matRipple 
-        *matCellDef="let element; let j = index" 
-        (click)="i > 0 ? selectActivity(j, column) : ''"
-        [style.background-color]="defineColour(i, element[column])"> 
-          {{element[column]}} 
-        </td>
-      </ng-container>
+  <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns; let i=index">
+    <th mat-header-cell *matHeaderCellDef> {{column}}
+      <button *ngIf="i > 0" (click)="removeActivity(column)" mat-icon-button aria-label="delete">
+        <mat-icon>close</mat-icon>
+      </button> 
+    </th>
+    <td mat-cell 
+    matRipple 
+    *matCellDef="let element; let j = index" 
+    (click)="i > 0 ? selectActivity(j, column) : ''"
+    [style.background-color]="defineColour(i, element[column])"> 
+      {{element[column]}} 
+    </td>
+  </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [pageSize]="resultsPerPage"></mat-paginator>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [pageSize]="resultsPerPage"></mat-paginator>
 
-    <form class="submitForm" autocomplete="off">
-      <mat-form-field>
-        <mat-label>Add Activity</mat-label>
-        <input matInput name="activityName" [(ngModel)]="activityName">
-      </mat-form-field>
-      <button mat-stroked-button (click)="activityName ? addActivity() : ''">Add</button>
-    </form>
-  </div>
-</mat-card>
+<form class="submitForm" autocomplete="off">
+  <mat-form-field>
+    <mat-label>Add Activity</mat-label>
+    <input matInput name="activityName" [(ngModel)]="activityName">
+  </mat-form-field>
+  <button mat-stroked-button (click)="activityName ? addActivity() : ''">Add</button>
+</form>
