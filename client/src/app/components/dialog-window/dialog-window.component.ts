@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivitiesService } from 'src/app/services/activities.service';
 
 import { ActivityDialog } from 'src/app/types/ActivityDialog';
+import { ActivityState } from 'src/app/types/ActivityState';
 
 @Component({
   selector: 'app-dialog-window',
@@ -13,7 +14,7 @@ import { ActivityDialog } from 'src/app/types/ActivityDialog';
 export class DialogWindowComponent implements OnInit {
 
   state: number = 0;
-  activityState?: string;
+  activityState?: ActivityState;
   notes: string = "";
 
   constructor(
@@ -41,6 +42,21 @@ export class DialogWindowComponent implements OnInit {
 
   onCancel(): void {
     this.dialogRef.close();
+  }
+
+  onSave(): void {
+    if (this.activityState !== 'In Progress') {
+
+    }
+    const newState: ActivityDialog = {
+      name: this.data.name,
+      id: this.data.id,
+      state: this.state,
+      notes: this.notes
+    };
+    console.log(this.state, this.activityState, this.notes);
+    this.activityService.updateActivity(newState)
+    .subscribe()
   }
 
   percentFormat(value: number): string {

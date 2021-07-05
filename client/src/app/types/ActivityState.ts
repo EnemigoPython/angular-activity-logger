@@ -1,0 +1,1 @@
+export type ActivityState = 'Unreported' | 'Failed' | 'Completed' | 'In Progress';
