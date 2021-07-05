@@ -10,7 +10,7 @@
         <mat-slider min="1" max="99" [(ngModel)]="state" thumbLabel [displayWith]="percentFormat" color="primary" aria-label="progress"></mat-slider>
     </div>
     <div>
-        <textarea matInput maxlength="256" rows="4" placeholder="Notes"></textarea>
+        <textarea matInput maxlength="256" rows="4" [(ngModel)]="notes" placeholder="Notes"></textarea>
     </div>
     <div mat-dialog-actions>
         <button mat-button (click)="onCancel()">Cancel</button>

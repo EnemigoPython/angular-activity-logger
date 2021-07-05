@@ -14,6 +14,7 @@ export class DialogWindowComponent implements OnInit {
 
   state: number = 0;
   activityState?: string;
+  notes: string = "";
 
   constructor(
     private activityService: ActivitiesService,
