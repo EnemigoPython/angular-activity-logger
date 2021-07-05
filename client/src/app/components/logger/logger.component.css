@@ -7,9 +7,20 @@ td {
 }
 
 td:not(:first-child):hover {
-  opacity: 0.7;
-  transition: 0.6s;
+  animation-name: glimmer;
+  animation-duration: 0.5s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
   cursor: pointer;
+}
+
+@keyframes glimmer {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
 }
 
 .submitForm {
