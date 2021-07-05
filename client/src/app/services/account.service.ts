@@ -92,4 +92,9 @@ export class AccountService {
     localStorage.removeItem('currentUser');
     this.router.navigateByUrl('/');
   }
+
+  getAccountStats(id: number) {
+    const params = new HttpParams().set("id", id);
+    return this.http.get<UserRes>(`${this.apiUrl}/users`, {params});
+  }
 }

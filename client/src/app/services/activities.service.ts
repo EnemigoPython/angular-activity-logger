@@ -108,7 +108,7 @@ export class ActivitiesService {
 
   getActivity(id: number): Observable<ActivityDialog> {
     const params = new HttpParams().set("id", id);
-    return this.http.get<ActivityDialog>(`${this.apiUrl}/activities/id`, {params: params});
+    return this.http.get<ActivityDialog>(`${this.apiUrl}/activities/id`, {params});
   }
 
   updateActivity(data: ActivityDialog) {
