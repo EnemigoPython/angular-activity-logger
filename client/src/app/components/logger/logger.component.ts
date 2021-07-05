@@ -74,10 +74,18 @@ export class LoggerComponent implements AfterViewInit {
     );
   }
 
+  stableObserver() {
+    // one time DOM check on page load (artificial timeout approach)
+    this.zone.onStable
+    .pipe(debounceTime(300))
+    .pipe(first())
+    .subscribe(
+      () => this.manageScrollMode()
+    );
+  }
+
   defineColour(i: number, state: string): string {
-    if (!i) {
-      return "#ffffff";
-    }
+    if (!i) return "#ffffff";
     switch (state) {
       case "in progress":
         return "#d1f8ff";
@@ -88,16 +96,6 @@ export class LoggerComponent implements AfterViewInit {
       default:
         return "#ffffff";
     }
-  }
-
-  stableObserver() {
-    // one time DOM check on page load (artificial timeout approach)
-    this.zone.onStable
-    .pipe(debounceTime(300))
-    .pipe(first())
-    .subscribe(
-      () => this.manageScrollMode()
-    );
   }
 
   selectActivity(j: number, col: string) {

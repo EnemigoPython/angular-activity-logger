@@ -29,6 +29,7 @@ import { LandingComponent } from './components/landing/landing.component';
 import { AppComponent } from './app.component';
 import { LoggerComponent } from './components/logger/logger.component';
 import { DialogWindowComponent } from './components/dialog-window/dialog-window.component';
+import { AccountContentComponent } from './components/account-content/account-content.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { DialogWindowComponent } from './components/dialog-window/dialog-window.
     FooterComponent,
     LandingComponent,
     LoggerComponent,
-    DialogWindowComponent
+    DialogWindowComponent,
+    AccountContentComponent
   ],
   imports: [
     FormsModule,
