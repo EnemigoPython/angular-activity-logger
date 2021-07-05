@@ -6,3 +6,9 @@ h3, h4 {
     margin-top: 15px;
     text-align: center;
 }
+
+#buttonDiv {
+    margin-top: 25px;
+    justify-content: center;
+    display: flex;
+}
