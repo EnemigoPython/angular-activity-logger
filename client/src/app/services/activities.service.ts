@@ -111,7 +111,6 @@ export class ActivitiesService {
   }
 
   updateActivity(data: ActivityDialog) {
-    const params = new HttpParams().set("id", data.id);
-    return this.http.put<ActivityDialog>(`${this.apiUrl}/activities/id`, {params: params});
+    return this.http.put<ActivityDialog>(`${this.apiUrl}/activities/id`, data, httpOptions);
   }
 }

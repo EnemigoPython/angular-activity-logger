@@ -46,7 +46,9 @@ export class DialogWindowComponent implements OnInit {
 
   onSave(): void {
     if (this.activityState !== 'In Progress') {
-
+      this.state = this.activityState === 'Failed' ? -1 :
+      this.activityState === 'Completed' ? 100 :
+      this.state;
     }
     const newState: ActivityDialog = {
       name: this.data.name,
@@ -54,9 +56,10 @@ export class DialogWindowComponent implements OnInit {
       state: this.state,
       notes: this.notes
     };
-    console.log(this.state, this.activityState, this.notes);
     this.activityService.updateActivity(newState)
-    .subscribe()
+    .subscribe(
+      res => console.log(res)
+    );
   }
 
   percentFormat(value: number): string {

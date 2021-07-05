@@ -57,7 +57,7 @@ app.use(express.urlencoded({
 
 app.use(cors({
     origin: "http://localhost:4200",
-    methods: ["GET", "POST", "DELETE"],
+    methods: ["GET", "POST", "DELETE", "PUT"]
 }));
 
 app.use(express.json());
