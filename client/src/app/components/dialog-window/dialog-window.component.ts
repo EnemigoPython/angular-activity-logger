@@ -48,6 +48,11 @@ export class DialogWindowComponent implements OnInit {
       this.activityState === 'Failed' ? -1 :
       this.activityState === 'Completed' ? 100 :
       this.state;
+    } else {
+      this.state =
+      this.state < 1 ? 1 :
+      this.state > 99 ? 99 :
+      this.state;
     }
     const newState: ActivityDialog = {
       name: this.data.name,
@@ -59,9 +64,7 @@ export class DialogWindowComponent implements OnInit {
     .subscribe(
       res => {
         if (res) {
-          this.dialogRef.close({
-            state: newState.state
-          });
+          this.dialogRef.close(newState.state);
         }
       }
     );
