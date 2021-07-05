@@ -8,7 +8,13 @@
             <mat-icon>close</mat-icon>
           </button> 
         </th>
-        <td mat-cell matRipple *matCellDef="let element; let j = index" (click)="i > 0 ? selectActivity(j, column) : ''"> {{element[column]}} </td>
+        <td mat-cell 
+        matRipple 
+        *matCellDef="let element; let j = index" 
+        (click)="i > 0 ? selectActivity(j, column) : ''"
+        [style.background-color]="defineColour(i, element[column])"> 
+          {{element[column]}} 
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

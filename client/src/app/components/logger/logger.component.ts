@@ -74,6 +74,22 @@ export class LoggerComponent implements AfterViewInit {
     );
   }
 
+  defineColour(i: number, state: string): string {
+    if (!i) {
+      return "#ffffff";
+    }
+    switch (state) {
+      case "in progress":
+        return "#d1f8ff";
+      case "completed":
+        return "#d4ffd1";
+      case "failed":
+        return "#ffbeab";
+      default:
+        return "#ffffff";
+    }
+  }
+
   stableObserver() {
     // one time DOM check on page load (artificial timeout approach)
     this.zone.onStable
