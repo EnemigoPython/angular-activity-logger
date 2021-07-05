@@ -42,16 +42,18 @@ export class DialogWindowComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  onProgressSelect() {
+    this.state =
+    this.state < 1 ? 1 :
+    this.state > 99 ? 99 :
+    this.state;
+  }
+
   onSave(): void {
     if (this.activityState !== 'In Progress') {
       this.state = 
       this.activityState === 'Failed' ? -1 :
       this.activityState === 'Completed' ? 100 :
-      this.state;
-    } else {
-      this.state =
-      this.state < 1 ? 1 :
-      this.state > 99 ? 99 :
       this.state;
     }
     const newState: ActivityDialog = {
