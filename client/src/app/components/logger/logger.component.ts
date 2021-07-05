@@ -84,7 +84,7 @@ export class LoggerComponent implements AfterViewInit {
     );
   }
 
-  selectActivity(j: number, col: string, item: string) {
+  selectActivity(j: number, col: string) {
     const itemIndex = j + (this.paginator.pageIndex * this.resultsPerPage);
     const dialogRef = this.dialog.open(DialogWindowComponent, {
       data: {
@@ -94,7 +94,13 @@ export class LoggerComponent implements AfterViewInit {
       position: { top: "15%" }
     });
     dialogRef.afterClosed().subscribe(res => {
-      console.log("closed");
+      if (res) {
+        console.log(res, itemIndex);
+        // this.dataSource.data = this.dataSource.data.map((row, i) => {
+        //   if (i !== itemIndex) return row;
+        //   return {...row, [col]: };
+        // });
+      }
     });
   }
 

@@ -24,14 +24,11 @@ export class DialogWindowComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data);
     this.activityService.getActivity(this.data.id)
     .subscribe(
       data => {
         this.state = data.state;
         this.notes = data.notes;
-        console.log(data);
-        console.log(this.state);
         this.activityState = 
         this.state === 0 ? 'Unreported' :
         this.state === -1 ? 'Failed' :
@@ -47,7 +44,8 @@ export class DialogWindowComponent implements OnInit {
 
   onSave(): void {
     if (this.activityState !== 'In Progress') {
-      this.state = this.activityState === 'Failed' ? -1 :
+      this.state = 
+      this.activityState === 'Failed' ? -1 :
       this.activityState === 'Completed' ? 100 :
       this.state;
     }
@@ -60,8 +58,9 @@ export class DialogWindowComponent implements OnInit {
     this.activityService.updateActivity(newState)
     .subscribe(
       res => {
-        console.log(res);
-        this.dialogRef.close();
+        this.dialogRef.close({
+          state: res.error ? null : newState
+        });
       }
     );
   }

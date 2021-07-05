@@ -30,6 +30,19 @@ export class ActivitiesService {
     return this.http.get<Activity[]>(`${this.apiUrl}/activities`, {params: params});
   }
 
+  stateNumberToLabel(state: number): string {
+    switch(state) {
+      case -1:
+        return 'failed';
+      case 0:
+        return 'unreported';
+      case 100:
+        return 'completed';
+      default:
+        return 'in progress';
+    }
+  }
+
   buildTableFromIndices(dataIndices: Activity[]): ActivityRow[] {
     const table: ActivityRow[] = [];
     this.mapOfIDs = {};
@@ -37,19 +50,7 @@ export class ActivitiesService {
       if (!table.map(row => row.date).includes(dataIndex.activityDate)) {
         table.push({ date: dataIndex.activityDate });
       }
-      switch(dataIndex.state) {
-        case -1:
-          table[table.length - 1][dataIndex.name] = 'failed';
-          break;
-        case 0:
-          table[table.length - 1][dataIndex.name] = 'unreported';
-          break;
-        case 100:
-          table[table.length - 1][dataIndex.name] = 'completed';
-          break;
-        default:
-          table[table.length - 1][dataIndex.name] = 'in progress';
-      }
+      table[table.length - 1][dataIndex.name] = this.stateNumberToLabel(dataIndex.state);
       this.mapOfIDs[`${dataIndex.name}[${table.length - 1}]`] = dataIndex.id;
     });
     console.log(table);
@@ -111,6 +112,6 @@ export class ActivitiesService {
   }
 
   updateActivity(data: ActivityDialog) {
-    return this.http.put<ActivityDialog>(`${this.apiUrl}/activities/id`, data, httpOptions);
+    return this.http.put<{error: string}>(`${this.apiUrl}/activities/id`, data, httpOptions);
   }
 }
