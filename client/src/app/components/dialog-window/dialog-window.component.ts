@@ -29,6 +29,7 @@ export class DialogWindowComponent implements OnInit {
     .subscribe(
       data => {
         this.state = data.state;
+        this.notes = data.notes;
         console.log(data);
         console.log(this.state);
         this.activityState = 
@@ -58,7 +59,10 @@ export class DialogWindowComponent implements OnInit {
     };
     this.activityService.updateActivity(newState)
     .subscribe(
-      res => console.log(res)
+      res => {
+        console.log(res);
+        this.dialogRef.close();
+      }
     );
   }
 

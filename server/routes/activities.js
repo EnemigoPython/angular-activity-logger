@@ -149,7 +149,7 @@ function getActivity(id) {
         db.query(
             `SELECT state, notes
             FROM activitydata
-            WHERE dataID = ?;`,
+            WHERE dataID = ?`,
             [
                 id
             ], (err, res) => {
@@ -158,6 +158,27 @@ function getActivity(id) {
                     reject(err.code);
                 } else {
                     resolve(res[0]);
+                }
+            }
+        )
+    });
+    return result;
+}
+
+function updateActivity(data) {
+    const result = new Promise((resolve, reject) => {
+        db.query(
+            `UPDATE activitydata
+            SET state = ?, notes = ?
+            WHERE dataID = ?`,
+            [
+                data.state, data.notes, data.id
+            ], (err, res) => {
+                if (err) {
+                    console.error(err);
+                    reject(err.code);
+                } else {
+                    resolve(res);
                 }
             }
         )
@@ -231,8 +252,7 @@ router.get("/id", async (req, res) => {
 
 router.put("/id", async (req, res) => {
     try {
-        console.log(req.body);
-        res.json({working: true});
+        res.json(await updateActivity(req.body));
     } catch (err) {
         console.error(err);
         res.json({ error: err });

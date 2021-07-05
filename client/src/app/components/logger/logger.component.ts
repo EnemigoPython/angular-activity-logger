@@ -86,13 +86,15 @@ export class LoggerComponent implements AfterViewInit {
 
   selectActivity(j: number, col: string, item: string) {
     const itemIndex = j + (this.paginator.pageIndex * this.resultsPerPage);
-    console.log(item);
-    this.dialog.open(DialogWindowComponent, {
+    const dialogRef = this.dialog.open(DialogWindowComponent, {
       data: {
         name: col,
         id: this.activitiesService.retrieveFromIndexID(`${col}[${itemIndex}]`)
       },
       position: { top: "15%" }
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      console.log("closed");
     });
   }
 
