@@ -203,17 +203,17 @@ router.post("/dates", async (req, res) => {
         for (const name of activityNames) {
             const activityID = await getActivityID({ name, id: userID });
             const dataIDs = await createActivityDataIndices(activityID, req.body.dates);
-            // activityDate: date needs to be pushed in order from early to late
             dataIDs.forEach((id, i) => {
                 dataIndices.push({
                     name,
-                    activityDate: getDateRemovedFromCurrent(dataIDs.length - (i + 1)),
+                    activityDate: getDateRemovedFromCurrent(i),
                     id,
                     state: 0
                 });
             });
         }
-        res.json(dataIndices);
+        // dataIndices are created newest to oldest but need to be displayed oldest to newest
+        res.json(dataIndices.reverse());
     } catch (err) {
         console.error(err);
         res.json({ error: err });
