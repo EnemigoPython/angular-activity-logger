@@ -95,11 +95,10 @@ export class LoggerComponent implements AfterViewInit {
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
-        console.log(res, itemIndex);
-        // this.dataSource.data = this.dataSource.data.map((row, i) => {
-        //   if (i !== itemIndex) return row;
-        //   return {...row, [col]: };
-        // });
+        this.dataSource.data = this.dataSource.data.map((row, i) => {
+          if (i !== itemIndex) return row;
+          return {...row, [col]: this.activitiesService.stateNumberToLabel(res.state)};
+        });
       }
     });
   }

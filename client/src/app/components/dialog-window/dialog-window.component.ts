@@ -58,9 +58,11 @@ export class DialogWindowComponent implements OnInit {
     this.activityService.updateActivity(newState)
     .subscribe(
       res => {
-        this.dialogRef.close({
-          state: res.error ? null : newState
-        });
+        if (res) {
+          this.dialogRef.close({
+            state: newState.state
+          });
+        }
       }
     );
   }
