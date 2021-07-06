@@ -25,6 +25,7 @@ export class AccountService {
   private accountSubject = new Subject<string | null>();
   private subjectID = new BehaviorSubject<number>(0);
   private lazySubjectID = new Subject<number>();
+  private statsSubject = new Subject<UserStats>();
 
   constructor(
     private http: HttpClient,
@@ -96,6 +97,13 @@ export class AccountService {
 
   getAccountStats(id: number) {
     const params = new HttpParams().set("id", id);
-    return this.http.get<UserStats>(`${this.apiUrl}/users/stats`, {params});
+    this.http.get<UserStats>(`${this.apiUrl}/users/stats`, {params})
+    .subscribe(
+      stats => this.statsSubject.next(stats)
+    );
+  }
+
+  statsObserver(): Observable<any> {
+    return this.statsSubject.asObservable();
   }
 }

@@ -20,19 +20,10 @@ export class AccountPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentAccount = this.accountService.getCurrentUser()!;
-    this.accountService.observerID()
+    this.accountService.statsObserver()
     .subscribe(
-      id => {
-        if (id > 0 && id !== this.currentID) {
-          this.currentID = id;
-          this.accountService.getAccountStats(id)
-          .subscribe(
-              stats => {
-                this.userStats = stats;
-              }
-          );
-        }
-      });
+      stats => this.userStats = stats
+    );
   }
 
 }
