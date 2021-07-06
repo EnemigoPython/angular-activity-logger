@@ -5,6 +5,6 @@
     <h4>Activities completed: {{userStats?.completed}}</h4>
     <h4>Reported completion rate: {{userStats?.percent}}%</h4>
     <div id="buttonDiv">
-        <button color="warn" mat-raised-button>Delete Account</button>
+        <button color="warn" mat-raised-button (click)="onDelete()">Delete Account</button>
     </div>
 </div>

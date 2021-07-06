@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { AccountService } from 'src/app/services/account.service';
 
@@ -15,7 +16,8 @@ export class AccountPageComponent implements OnInit {
   userStats?: UserStats;
 
   constructor(
-    private accountService: AccountService
+    private accountService: AccountService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -23,6 +25,38 @@ export class AccountPageComponent implements OnInit {
     this.accountService.statsObserver()
     .subscribe(
       stats => this.userStats = stats
+    );
+  }
+
+  onDelete() {
+    this.dialog.open(DeleteDialog, {
+      position: { top: "15%" }
+    });
+  }
+
+}
+
+@Component({
+  selector: 'app-delete-dialog',
+  templateUrl: 'delete-dialog.html',
+  styleUrls: ['./account-page.component.css']
+})
+export class DeleteDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<DeleteDialog>,
+    private accountService: AccountService
+    ) { }
+
+  onCancel(): void {
+    this.dialogRef.close();
+  }
+
+  onConfirmDelete() {
+    this.dialogRef.close();
+    this.accountService.deleteAccount()
+    .subscribe(
+      res => this.accountService.signOut()
     );
   }
 

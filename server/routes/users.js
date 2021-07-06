@@ -143,6 +143,26 @@ function getUserStats(id) {
     return result;
 }
 
+function deleteUser(id) {
+    const result = new Promise((resolve, reject) => {
+        db.query(
+            `DELETE FROM users
+            WHERE userID = ?`,
+            [
+                id
+            ], (err, res) => {
+                if (err) {
+                    console.error(err);
+                    reject(err.code);
+                } else {
+                    resolve(res);
+                }
+            }
+        )
+    });
+    return result;
+}
+
 router.get("/id", async (req, res) => {
     try {
         res.json(await getID(req.query.user));
@@ -184,6 +204,15 @@ router.get("/stats", async (req, res) => {
         });
     } catch (err) {
         res.json(err);
+    }
+});
+
+router.delete("/", async (req, res) => {
+    try {
+        res.json(await deleteUser(req.body.id));
+    } catch (err) {
+        console.error(err);
+        res.json({ error: err });
     }
 });
 

@@ -31,7 +31,8 @@ function checkOrCreateTables() {
         userID int NOT NULL, 
         activityname VARCHAR(255) NOT NULL,
         PRIMARY KEY (activityID),
-        FOREIGN KEY (userID) REFERENCES users(userID));
+        FOREIGN KEY (userID) REFERENCES users(userID)
+        ON DELETE CASCADE);
     CREATE TABLE IF NOT EXISTS activitydata(
         dataID int AUTO_INCREMENT,
         activityID int NOT NULL,
@@ -39,7 +40,8 @@ function checkOrCreateTables() {
         state tinyint NOT NULL,
         notes VARCHAR(255),
         PRIMARY KEY (dataID),
-        FOREIGN KEY (activityID) REFERENCES activities(activityID));`;
+        FOREIGN KEY (activityID) REFERENCES activities(activityID)
+        ON DELETE CASCADE);`;
     db.query(sql, (err, _result) => {
         if (err) throw err;
         console.log("Checking tables...");

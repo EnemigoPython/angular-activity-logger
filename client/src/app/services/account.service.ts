@@ -106,4 +106,14 @@ export class AccountService {
   statsObserver(): Observable<any> {
     return this.statsSubject.asObservable();
   }
+
+  deleteAccount() {
+    const options = {
+      headers: httpOptions.headers,
+      body: {
+        id: this.currentID
+      }
+    };
+    return this.http.delete(`${this.apiUrl}/users`, options);
+  }
 }
