@@ -41,9 +41,11 @@ export class AccountContentComponent implements OnInit {
     );
   }
 
-  tabSwitchHandler() {
+  tabSwitchHandler($event: any) {
+    if ($event.index) {
+      this.accountService.getAccountStats(this.currentID!);
+    }
     this.manageScrollMode();
-    this.accountService.getAccountStats(this.currentID!);
   }
 
   manageScrollMode() {
