@@ -5,6 +5,7 @@ h2, h4 {
 
 #buttonDiv {
     margin-top: 25px;
+    margin-bottom: 15px;
     justify-content: center;
     display: flex;
 }

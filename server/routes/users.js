@@ -84,6 +84,65 @@ function attemptLogin(details) {
     return result;
 }
 
+function getUserStats(id) {
+    const dateRes = new Promise((resolve, reject) => {
+        db.query(
+            `SELECT 
+                DATE_FORMAT(MIN(date), '%d/%m/%Y') AS joinDate, 
+                (MAX(date) - MIN(date)) + 1 AS totalDays
+            FROM activitydata 
+            JOIN activities
+            WHERE userID = ?`,
+            [
+                id
+            ], (err, res) => {
+                if (err) {
+                    reject(err.code);
+                } else {
+                    resolve(res[0]);
+                }
+            });
+    });
+    const countRes = new Promise((resolve, reject) => {
+        db.query(
+            `SELECT 
+                COUNT(DISTINCT(dataID)) AS completed 
+            FROM activitydata
+            JOIN activities 
+            WHERE state = 100 
+            AND userID = ?`,
+            [
+                id
+            ], (err, res) => {
+                if (err) {
+                    reject(err.code);
+                } else {
+                    resolve(res[0]);
+                }
+            });
+    });
+    const totalRes = new Promise((resolve, reject) => {
+        db.query(
+            `SELECT 
+                COUNT(DISTINCT(dataID)) AS totalReported 
+            FROM activitydata
+            JOIN activities 
+            WHERE NOT state = 0 
+            AND userID = ?`,
+            [
+                id
+            ], (err, res) => {
+                if (err) {
+                    reject(err.code);
+                } else {
+                    resolve(res[0]);
+                }
+            });
+    });
+    const result = Promise.all([dateRes, countRes, totalRes]);
+    return result;
+}
+
 router.get("/id", async (req, res) => {
     try {
         res.json(await getID(req.query.user));
@@ -107,6 +166,23 @@ router.post("/", async (req, res) => {
             error: err,
             id: 0 
         });
+    }
+});
+
+router.get("/stats", async (req, res) => {
+    try {
+        const userStats = await getUserStats(req.query.id);
+        newStats = userStats.reduce((i, total) => {
+            return {...total, ...i};
+        });
+        const completePercent = (newStats.completed / newStats.totalReported) * 100;
+        res.json({ 
+            date: newStats.joinDate, 
+            days: newStats.totalDays, 
+            percent: completePercent 
+        });
+    } catch (err) {
+        res.json(err);
     }
 });
 

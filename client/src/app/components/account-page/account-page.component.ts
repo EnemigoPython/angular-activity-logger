@@ -9,6 +9,7 @@ import { AccountService } from 'src/app/services/account.service';
 })
 export class AccountPageComponent implements OnInit {
   currentAccount: string = '';
+  currentID?: number;
 
   constructor(
     private accountService: AccountService
@@ -16,6 +17,17 @@ export class AccountPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentAccount = this.accountService.getCurrentUser()!;
+    this.accountService.observerID()
+    .subscribe(
+      id => {
+        if (id > 0 && id !== this.currentID) {
+          this.currentID = id;
+          this.accountService.getAccountStats(id)
+          .subscribe(
+              
+          );
+        }
+      });
   }
 
 }

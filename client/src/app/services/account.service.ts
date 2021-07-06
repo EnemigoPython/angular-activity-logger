@@ -95,6 +95,6 @@ export class AccountService {
 
   getAccountStats(id: number) {
     const params = new HttpParams().set("id", id);
-    return this.http.get<UserRes>(`${this.apiUrl}/users`, {params});
+    return this.http.get<string[]>(`${this.apiUrl}/users/stats`, {params});
   }
 }
