@@ -99,7 +99,7 @@ async function deleteActivity(data) {
     const activityID = await getActivityID(data);
     const result = new Promise((resolve, reject) => {
         db.query(
-            `DELETE FROM activitydata
+            `DELETE FROM activities
             WHERE activityID = ?`,
             [
                 activityID
@@ -112,24 +112,7 @@ async function deleteActivity(data) {
                 }
             }
         )
-    }).then(
-        new Promise((resolve, reject) => {
-            db.query(
-                `DELETE FROM activities
-                WHERE activityID = ?`,
-                [
-                    activityID
-                ], (err, res) => {
-                    if (err) {
-                        console.error(err);
-                        reject(err.code);
-                    } else {
-                        resolve(res);
-                    }
-                }
-            )
-        })
-    );
+    });
     return result;
 }
 
