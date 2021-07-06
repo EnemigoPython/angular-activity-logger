@@ -1,9 +1,9 @@
 <div id="window">
     <h2>Current account: <b>{{currentAccount}}</b></h2>
-    <h4>Days active: {{userStats?.days}}</h4>
-    <h4>Active since: {{userStats?.date}}</h4>
+    <h4>Days active: {{userStats?.days || 'none'}}</h4>
+    <h4>Active since: {{userStats?.date || 'no data'}}</h4>
     <h4>Activities completed: {{userStats?.completed}}</h4>
-    <h4>Reported completion rate: {{userStats?.percent}}%</h4>
+    <h4>Reported completion rate: {{userStats?.percent || 0}}%</h4>
     <div id="buttonDiv">
         <button color="warn" mat-raised-button (click)="onDelete()">Delete Account</button>
     </div>
