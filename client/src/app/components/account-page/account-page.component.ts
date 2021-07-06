@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { AccountService } from 'src/app/services/account.service';
 
+import { UserStats } from 'src/app/types/UserStats';
+
 @Component({
   selector: 'app-account-page',
   templateUrl: './account-page.component.html',
@@ -10,6 +12,7 @@ import { AccountService } from 'src/app/services/account.service';
 export class AccountPageComponent implements OnInit {
   currentAccount: string = '';
   currentID?: number;
+  userStats?: UserStats;
 
   constructor(
     private accountService: AccountService
@@ -24,7 +27,9 @@ export class AccountPageComponent implements OnInit {
           this.currentID = id;
           this.accountService.getAccountStats(id)
           .subscribe(
-              
+              stats => {
+                this.userStats = stats;
+              }
           );
         }
       });

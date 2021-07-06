@@ -6,6 +6,7 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 
 import { LoginDetails } from '../types/LoginDetails';
 import { UserRes } from '../types/UserRes';
+import { UserStats } from '../types/UserStats';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -95,6 +96,6 @@ export class AccountService {
 
   getAccountStats(id: number) {
     const params = new HttpParams().set("id", id);
-    return this.http.get<string[]>(`${this.apiUrl}/users/stats`, {params});
+    return this.http.get<UserStats>(`${this.apiUrl}/users/stats`, {params});
   }
 }

@@ -175,10 +175,11 @@ router.get("/stats", async (req, res) => {
         newStats = userStats.reduce((i, total) => {
             return {...total, ...i};
         });
-        const completePercent = (newStats.completed / newStats.totalReported) * 100;
+        const completePercent = Math.round((newStats.completed / newStats.totalReported) * 100);
         res.json({ 
             date: newStats.joinDate, 
-            days: newStats.totalDays, 
+            days: newStats.totalDays,
+            completed: newStats.completed,
             percent: completePercent 
         });
     } catch (err) {
