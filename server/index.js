@@ -71,6 +71,10 @@ app.use(express.json());
 app.use('/users', usersRoute);
 app.use('/activities', activitiesRoute);
 
+app.get('/*', (req, res) => {
+    res.sendFile('index.html', {root: distPath});
+});
+
 server.listen(port, () => {
     console.log(`Listening on http://localhost:${port}`);
 });
