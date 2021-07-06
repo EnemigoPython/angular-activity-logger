@@ -41,7 +41,7 @@ export class AccountContentComponent implements OnInit {
     );
   }
 
-  tabSwitchHandler($event: any) {
+  tabSwitchHandler($event: {index: number}) {
     if ($event.index) {
       this.accountService.getAccountStats(this.currentID!);
     }
