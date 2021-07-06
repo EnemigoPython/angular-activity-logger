@@ -52,10 +52,14 @@ const port = process.env.PORT || 3000;
 const app = express();
 const server = http.createServer(app);
 const cors = require('cors');
+const path = require('path');
 
 app.use(express.urlencoded({
     extended: true
 }));
+
+const distPath = path.join(__dirname, '..', '/client/dist/client');
+app.use(express.static(distPath));
 
 app.use(cors({
     origin: "http://127.0.0.1:8080",
@@ -66,11 +70,6 @@ app.use(express.json());
 
 app.use('/users', usersRoute);
 app.use('/activities', activitiesRoute);
-
-app.get('/', (req, res) => {
-    res.json({'Hello World': true});
-    console.log('received');
-});
 
 server.listen(port, () => {
     console.log(`Listening on http://localhost:${port}`);
