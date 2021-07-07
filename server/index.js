@@ -29,6 +29,7 @@ function startDB() {
             }
             console.error('No response - shutting down...');
             db.end();
+            process.exit();
         }
     });
 }
