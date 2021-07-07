@@ -29,7 +29,10 @@ function startDB() {
             }
             console.error('No response - shutting down...');
             db.end();
-            process.exit();
+            setTimeout(() => {
+                console.log('...waited 5s, exiting.');
+                process.exit(0);
+            }, 5000).unref();
         }
     });
 }
