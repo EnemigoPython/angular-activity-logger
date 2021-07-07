@@ -4,7 +4,7 @@ function bootstrap() {
     return new Promise((resolve, reject) => {
         const init = mysql.createConnection({
             host                : process.env.HOST || 'localhost',
-            user                : 'root',
+            user                : process.env.USER || 'root',
             password            : process.env.PASSWORD,
         });
         
@@ -20,7 +20,7 @@ function bootstrap() {
 
 const db = mysql.createConnection({
     host                : process.env.HOST || 'localhost',
-    user                : 'root',
+    user                : process.env.USER || 'root',
     password            : process.env.PASSWORD,
     database            : 'activitylogger',
     multipleStatements  : true
