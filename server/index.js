@@ -20,6 +20,11 @@ function startDB() {
         }
         console.log('Database connected...');
     });
+
+    db.on('error', (err) => {
+        if (!err.code === 'PROTOCOL_CONNECTION_LOST') throw err;
+        setTimeout(startDB, 2000);
+    });
 }
 
 function checkOrCreateTables() {
