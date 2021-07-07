@@ -17,22 +17,13 @@ function startDB() {
         if (err) {
             if (!err.code === 'PROTOCOL_CONNECTION_LOST') throw err;
             setTimeout(startDB, 2000);
-        } else console.log('Database connected...');
+        }
+        console.log('Database connected...');
     });
 
     db.on('error', (err) => {
         if (!err.code === 'PROTOCOL_CONNECTION_LOST') throw err;
-        else {
-            console.error('Connection lost, attempting to reconnect...')
-            for (let i = 0; i < 9; i++) {
-                setTimeout(startDB, 2000);
-            }
-            console.error('No response - shutting down...');
-            db.end();
-            server.close(() => {
-                process.exit(0);
-            });
-        }
+        setTimeout(startDB, 2000);
     });
 }
 
