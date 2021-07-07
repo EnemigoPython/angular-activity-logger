@@ -28,7 +28,7 @@ function startDB() {
                 setTimeout(startDB, 2000);
             }
             console.error('No response - shutting down...');
-            process.exit();
+            db.end();
         }
     });
 }
