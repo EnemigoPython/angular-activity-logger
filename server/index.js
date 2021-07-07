@@ -29,10 +29,9 @@ function startDB() {
             }
             console.error('No response - shutting down...');
             db.end();
-            setTimeout(() => {
-                console.log('...waited 5s, exiting.');
+            server.close(() => {
                 process.exit(0);
-            }, 5000).unref();
+            });
         }
     });
 }
