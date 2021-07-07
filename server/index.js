@@ -14,7 +14,10 @@ const activitiesRoute = require('./routes/activities');
 
 function startDB() {
     db.connect((err) => {
-        if (err) throw err;
+        if (err) {
+            if (!err.code === 'PROTOCOL_CONNECTION_LOST') throw err;
+            setTimeout(startDB, 2000);
+        }
         console.log('Database connected...');
     });
 }
@@ -62,7 +65,7 @@ const distPath = path.join(__dirname, '..', '/client/dist/client');
 app.use(express.static(distPath));
 
 app.use(cors({
-    origin: "http://127.0.0.1:8080",
+    origin: "http://localhost:4200",
     methods: ["GET", "POST", "DELETE", "PUT"]
 }));
 
