@@ -5,7 +5,7 @@ function bootstrap() {
         const init = mysql.createConnection({
             host                : process.env.HOST || 'localhost',
             user                : process.env.USER || 'root',
-            password            : process.env.PASSWORD,
+            password            : process.env.PASSWORD
         });
         
         const sql = 'CREATE DATABASE IF NOT EXISTS activitylogger;';
