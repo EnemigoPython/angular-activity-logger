@@ -17,7 +17,7 @@ function getID(account) {
                     return;
                 }
                 if (err) {
-                    reject(err.code);
+                    reject(err);
                 } else {
                     resolve(res[0].userID);
                 }
@@ -40,7 +40,7 @@ function createAccount(details) {
                 passHash
             ], (err, res) => {
                 if (err) {
-                    reject(err.code);
+                    reject(err);
                 } else {
                     resolve({ 
                         username: details.username, 
@@ -63,7 +63,7 @@ function attemptLogin(details) {
                 details.username
             ], (err, res) => {
                 if (err) {
-                    reject(err.code);
+                    reject(err);
                 } else {
                     if (res.length < 1) {
                         reject('NO_ACC');
@@ -97,7 +97,7 @@ function getUserStats(id) {
                 id
             ], (err, res) => {
                 if (err) {
-                    reject(err.code);
+                    reject(err);
                 } else {
                     resolve(res[0]);
                 }
@@ -115,7 +115,7 @@ function getUserStats(id) {
                 id
             ], (err, res) => {
                 if (err) {
-                    reject(err.code);
+                    reject(err);
                 } else {
                     resolve(res[0]);
                 }
@@ -133,7 +133,7 @@ function getUserStats(id) {
                 id
             ], (err, res) => {
                 if (err) {
-                    reject(err.code);
+                    reject(err);
                 } else {
                     resolve(res[0]);
                 }
@@ -152,8 +152,8 @@ function deleteUser(id) {
                 id
             ], (err, res) => {
                 if (err) {
-                    console.error(err);
-                    reject(err.code);
+                    console.error(err.code);
+                    reject(err);
                 } else {
                     resolve(res);
                 }
@@ -167,7 +167,7 @@ router.get("/id", async (req, res) => {
     try {
         res.json(await getID(req.query.user));
     } catch (err) {
-        console.error(err);
+        console.error(err.code);
         res.json({ error: err });
     }
 });
@@ -180,7 +180,7 @@ router.post("/", async (req, res) => {
             res.json(await attemptLogin(req.body));
         }
     } catch (err) {
-        console.error(err);
+        console.error(err.code);
         res.json({ 
             username: null, 
             error: err,
@@ -211,7 +211,7 @@ router.delete("/", async (req, res) => {
     try {
         res.json(await deleteUser(req.body.id));
     } catch (err) {
-        console.error(err);
+        console.error(err.code);
         res.json({ error: err });
     }
 });

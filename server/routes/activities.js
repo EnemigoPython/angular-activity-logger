@@ -15,8 +15,8 @@ function getActivities(id) {
                 id
             ], (err, res) => {
                 if (err) {
-                    console.error(err);
-                    reject(err.code);
+                    console.error(err.code);
+                    reject(err);
                 } else {
                     resolve(res);
                 }
@@ -36,8 +36,8 @@ function createActivity(data) {
                 data.id, data.name
             ], (err, res) => {
                 if (err) {
-                    console.error(err);
-                    reject(err.code);
+                    console.error(err.code);
+                    reject(err);
                 } else {
                     resolve(res.insertId);
                 }
@@ -59,8 +59,8 @@ async function createActivityDataIndices(id, dates) {
                     id, i
                 ], (err, res) => {
                     if (err) {
-                        console.error(err);
-                        reject(err.code);
+                        console.error(err.code);
+                        reject(err);
                     } else {
                         resolve(res.insertId);
                     }
@@ -84,8 +84,8 @@ function getActivityID(data) {
                 data.id
             ], (err, res) => {
                 if (err) {
-                    console.error(err);
-                    reject(err.code);
+                    console.error(err.code);
+                    reject(err);
                 } else {
                     resolve(res[0].activityID);
                 }
@@ -105,8 +105,8 @@ async function deleteActivity(data) {
                 activityID
             ], (err, res) => {
                 if (err) {
-                    console.error(err);
-                    reject(err.code);
+                    console.error(err.code);
+                    reject(err);
                 } else {
                     resolve(res);
                 }
@@ -137,8 +137,8 @@ function getActivity(id) {
                 id
             ], (err, res) => {
                 if (err) {
-                    console.error(err);
-                    reject(err.code);
+                    console.error(err.code);
+                    reject(err);
                 } else {
                     resolve(res[0]);
                 }
@@ -158,8 +158,8 @@ function updateActivity(data) {
                 data.state, data.notes, data.id
             ], (err, res) => {
                 if (err) {
-                    console.error(err);
-                    reject(err.code);
+                    console.error(err.code);
+                    reject(err);
                 } else {
                     resolve(res);
                 }
@@ -173,7 +173,7 @@ router.get("/", async (req, res) => {
     try {
         res.json(await getActivities(req.query.id));
     } catch (err) {
-        console.error(err);
+        console.error(err.code);
         res.json({ error: err });
     }
 });
@@ -184,7 +184,7 @@ router.post("/", async (req, res) => {
         const numberOfDates = req.body.numberOfDates;
         res.json(await createActivityDataIndices(activityID, numberOfDates));
     } catch (err) {
-        console.error(err);
+        console.error(err.code);
         res.json({ error: err });
     }
 });
@@ -193,7 +193,7 @@ router.delete("/", async (req, res) => {
     try {
         res.json(await deleteActivity(req.body));
     } catch (err) {
-        console.error(err);
+        console.error(err.code);
         res.json({ error: err });
     }
 });
@@ -219,7 +219,7 @@ router.post("/dates", async (req, res) => {
         // dataIndices are created newest to oldest but need to be displayed oldest to newest
         res.json(dataIndices.reverse());
     } catch (err) {
-        console.error(err);
+        console.error(err.code);
         res.json({ error: err });
     }
 });
@@ -228,7 +228,7 @@ router.get("/id", async (req, res) => {
     try {
         res.json(await getActivity(req.query.id));
     } catch (err) {
-        console.error(err);
+        console.error(err.code);
         res.json({ error: err });
     }
 });
@@ -237,7 +237,7 @@ router.put("/id", async (req, res) => {
     try {
         res.json(await updateActivity(req.body));
     } catch (err) {
-        console.error(err);
+        console.error(err.code);
         res.json({ error: err });
     }
 });
