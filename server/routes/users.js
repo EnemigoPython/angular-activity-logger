@@ -12,7 +12,7 @@ function getID(account) {
             [
                 account
             ], (err, res) => {
-                if (!res.length) {
+                if (!res) {
                     reject("NO_ACCOUNT");
                     return;
                 }
