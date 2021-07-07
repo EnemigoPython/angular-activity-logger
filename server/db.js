@@ -1,6 +1,8 @@
 const mysql = require('mysql');
 
 function bootstrap() {
+    // this code might be problematic in prod and causing admin issues - don't run it in prod
+    if (process.env.HOST) return;
     return new Promise((resolve, reject) => {
         const init = mysql.createConnection({
             host                : process.env.HOST || 'localhost',
@@ -22,7 +24,7 @@ const db = mysql.createConnection({
     host                : process.env.HOST || 'localhost',
     user                : process.env.USER || 'root',
     password            : process.env.PASSWORD,
-    database            : 'activitylogger',
+    database            : process.env.DATABASE || 'activitylogger',
     multipleStatements  : true
 });
 
