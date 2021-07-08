@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 function getID(account) {
     const result = new Promise((resolve, reject) => {
-        db.query(
+        db.connection.query(
             `SELECT (userID)
             FROM users
             WHERE username = ?`,
@@ -30,7 +30,7 @@ function getID(account) {
 function createAccount(details) {
     const passHash = bcrypt.hashSync(details.password, 10);
     const result = new Promise((resolve, reject) => {
-        db.query(
+        db.connection.query(
             `INSERT INTO users
             (username, password)
             VALUES
@@ -55,7 +55,7 @@ function createAccount(details) {
 
 function attemptLogin(details) {
     const result = new Promise((resolve, reject) => {
-        db.query(
+        db.connection.query(
             `SELECT *
             FROM users
             WHERE username = ?`,
@@ -86,7 +86,7 @@ function attemptLogin(details) {
 
 function getUserStats(id) {
     const dateRes = new Promise((resolve, reject) => {
-        db.query(
+        db.connection.query(
             `SELECT 
                 DATE_FORMAT(MIN(date), '%d/%m/%Y') AS joinDate, 
                 (MAX(date) - MIN(date)) + 1 AS totalDays
@@ -104,7 +104,7 @@ function getUserStats(id) {
             });
     });
     const countRes = new Promise((resolve, reject) => {
-        db.query(
+        db.connection.query(
             `SELECT 
                 COUNT(DISTINCT(dataID)) AS completed 
             FROM activitydata
@@ -122,7 +122,7 @@ function getUserStats(id) {
             });
     });
     const totalRes = new Promise((resolve, reject) => {
-        db.query(
+        db.connection.query(
             `SELECT 
                 COUNT(DISTINCT(dataID)) AS totalReported 
             FROM activitydata
@@ -145,7 +145,7 @@ function getUserStats(id) {
 
 function deleteUser(id) {
     const result = new Promise((resolve, reject) => {
-        db.query(
+        db.connection.query(
             `DELETE FROM users
             WHERE userID = ?`,
             [

@@ -4,7 +4,7 @@ const router = express.Router();
 
 function getActivities(id) {
     const result = new Promise((resolve, reject) => {
-        db.query(
+        db.connection.query(
             `SELECT activityname AS name, DATE_FORMAT(date, '%d/%m/%Y') AS activityDate, dataID AS id, state
             FROM activities
             JOIN activitydata ON
@@ -28,7 +28,7 @@ function getActivities(id) {
 
 function createActivity(data) {
     const result = new Promise((resolve, reject) => {
-        db.query(
+        db.connection.query(
             `INSERT INTO activities
             (userID, activityname)
             VALUES (?, ?)`,
@@ -51,7 +51,7 @@ async function createActivityDataIndices(id, dates) {
     dataIDs = [];
     for (let i = 0; i < dates; i++) {
         const newID = new Promise((resolve, reject) => {
-            db.query(
+            db.connection.query(
                 `INSERT INTO activitydata
                 (activityID, date, state, notes)
                 VALUES (?, subdate(current_date(), ?), 0, NULL)`,
@@ -74,7 +74,7 @@ async function createActivityDataIndices(id, dates) {
 
 function getActivityID(data) {
     const result = new Promise((resolve, reject) => {
-        db.query(
+        db.connection.query(
             `SELECT activityID
             FROM activities 
             WHERE activityname = ?
@@ -98,7 +98,7 @@ function getActivityID(data) {
 async function deleteActivity(data) {
     const activityID = await getActivityID(data);
     const result = new Promise((resolve, reject) => {
-        db.query(
+        db.connection.query(
             `DELETE FROM activities
             WHERE activityID = ?`,
             [
@@ -129,7 +129,7 @@ function getDateRemovedFromCurrent(days) {
 
 function getActivity(id) {
     const result = new Promise((resolve, reject) => {
-        db.query(
+        db.connection.query(
             `SELECT state, notes
             FROM activitydata
             WHERE dataID = ?`,
@@ -150,7 +150,7 @@ function getActivity(id) {
 
 function updateActivity(data) {
     const result = new Promise((resolve, reject) => {
-        db.query(
+        db.connection.query(
             `UPDATE activitydata
             SET state = ?, notes = ?
             WHERE dataID = ?`,
