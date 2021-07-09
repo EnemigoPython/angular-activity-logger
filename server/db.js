@@ -30,6 +30,7 @@ class Database {
     });
 
     start() {
+        console.log(this.connection);
         this.connection.connect((err) => {
             if (err) {
                 if (!err.code === 'PROTOCOL_CONNECTION_LOST') throw err;
@@ -42,6 +43,7 @@ class Database {
     
         this.connection.on('error', (err) => {
             if (!err.code === 'PROTOCOL_CONNECTION_LOST') throw err;
+            console.log(this.connection);
             this.connection.destroy();
             this.resetConnection();
         });
@@ -77,6 +79,7 @@ class Database {
     }
 
     resetConnection() {
+        console.log(this.connection);
         console.log('Resetting connection...');
         this.connection = mysql.createConnection({
             host                : process.env.HOST || 'localhost',
