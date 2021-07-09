@@ -30,12 +30,7 @@ class Database {
     });
 
     start() {
-        this.connection.connect((err) => {
-            if (err) {
-                if (!err.code === 'PROTOCOL_CONNECTION_LOST') throw err;
-                this.connection.destroy();
-                console.log('Database disconnected...');
-            }
+        this.connection.connect((_err) => {
             console.log('Database connected...');
             this.checkOrCreateTables();
         });
@@ -43,7 +38,7 @@ class Database {
         this.connection.on('error', (err) => {
             if (!err.code === 'PROTOCOL_CONNECTION_LOST') throw err;
             this.connection.destroy();
-            console.log('Database disconnected');
+            console.log('Database disconnected...');
         });
     }
 

@@ -36,6 +36,8 @@ app.use('/activities', activitiesRoute);
 
 app.get('/*', (req, res) => {
     res.sendFile('index.html', {root: distPath});
+    console.log('get req');
+    console.log(db.connection);
     if (!db.connection) {
         db.resetConnection();
     }
