@@ -36,6 +36,9 @@ app.use('/activities', activitiesRoute);
 
 app.get('/*', (req, res) => {
     res.sendFile('index.html', {root: distPath});
+    if (!db.connection) {
+        db.resetConnection();
+    }
 });
 
 server.listen(port, () => {
