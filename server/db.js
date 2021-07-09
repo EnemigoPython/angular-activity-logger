@@ -42,7 +42,6 @@ class Database {
             if (!err.code === 'PROTOCOL_CONNECTION_LOST') throw err;
             this.connection.destroy();
             this.resetConnection();
-            setTimeout(this.start, 2000);
         });
     }
 
@@ -84,6 +83,7 @@ class Database {
             database            : process.env.DATABASE || 'activitylogger',
             multipleStatements  : true
         });
+        setTimeout(this.start, 2000);
     }
 }
 
