@@ -31,14 +31,6 @@ app.use(cors({
 
 app.use(express.json());
 
-app.use(() => {
-    console.log('get req');
-    console.log(db.connection);
-    if (!db.connection) {
-        db.resetConnection();
-    }
-});
-
 app.use('/users', usersRoute);
 app.use('/activities', activitiesRoute);
 
